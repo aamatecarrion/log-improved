@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { LocalStorageContext } from '../../contexts/LocalStorageContext'
 import './LogInput.css'
+
 const LogInput = () => {
 
     const { data, setData } = useContext(LocalStorageContext)
@@ -12,7 +13,7 @@ const LogInput = () => {
             <form onSubmit={(e) => {
                 e.preventDefault();
                 const input = e.target.elements.input;
-                const newReg = { text: input.value, hour: new Date() };
+                const newReg = { text: input.value, id: crypto.randomUUID(), date: new Date() };
                 setData({ ...data, regs: [...data.regs || [], newReg] })
                 input.value = '';
             }}>

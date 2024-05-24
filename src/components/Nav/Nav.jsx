@@ -11,7 +11,7 @@ const Nav = () => {
     console.log(data)
     return (
         <nav>
-            <Link to="/graps">Graphs</Link>
+            <Link to="/graphs">Graphs</Link>
             <Link to="/buttons">Buttons</Link>
             <Link to="/">Home</Link>
         </nav>

@@ -9,7 +9,7 @@ const Home = () => {
   
   return (
     <div>
-
+      <LogsTable></LogsTable>
       <LogInput></LogInput>
     </div>
 
