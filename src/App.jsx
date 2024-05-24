@@ -1,16 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import ListaRegistros from './ListaRegistros';
-import DetalleRegistro from './DetalleRegistro';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import Buttons from './pages/Buttons/Buttons';
+import Graphs from './pages/Graphs/Graphs';
+import Log from './pages/Log/Log';
+import Nav from './components/Nav/Nav';
+import { LocalStorageProvider } from './contexts/LocalStorageContext';
+
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={ListaRegistros} />
-        <Route exact path="/registro/:id" component={DetalleRegistro} />
-      </Switch>
-    </Router>
+    <LocalStorageProvider>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home></Home>} />
+          <Route exact path="/buttons" element={<Buttons></Buttons>} />
+          <Route exact path="/log/:id" element={<Log></Log>} />
+          <Route exact path="/graps" element={<Graphs></Graphs>} />
+        </Routes>
+      </Router>
+    </LocalStorageProvider>
   );
 };
 
