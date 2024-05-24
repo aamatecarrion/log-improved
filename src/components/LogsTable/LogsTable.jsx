@@ -8,16 +8,18 @@ const Logs = () => {
     const { data, setData } = useContext(LocalStorageContext)
     return (
     <table>
-      {data.regs && data.regs.map((reg, index) => {
-        return (
-          <tr key={reg.id}>
-            <td>{reg.id}</td>
-            <td>{reg.text}</td>
-            <td>{reg.date.toLocaleString()}</td>
-            <td><Link to={`/log/${reg.id}`} >Ver</Link></td>
-          </tr>
-        )
-      })}
+      <tbody>
+        {data.regs && data.regs.map((reg) => {
+          return (
+            <tr key={reg.id}>
+              <td>{reg.id}</td>
+              <td>{reg.text}</td>
+              <td>{reg.date.toLocaleString()}</td>
+              <td><Link to={`/log/${reg.id}`} >Ver</Link></td>
+            </tr>
+          )
+        })}
+      </tbody>
     </table>
   )
 }
