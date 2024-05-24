@@ -1,6 +1,8 @@
 import React from 'react'
 import { useContext } from 'react'
 import { LocalStorageContext } from '../../contexts/LocalStorageContext'
+import { Link } from 'react-router-dom'
+import './Nav.css'
 
 const Nav = () => {
 
@@ -8,9 +10,11 @@ const Nav = () => {
 
     console.log(data)
     return (
-        <div>
-
-        </div>
+        <nav>
+            <Link to="/graps">Graphs</Link>
+            <Link to="/buttons">Buttons</Link>
+            <Link to="/">Home</Link>
+        </nav>
     )
 }
 

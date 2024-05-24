@@ -6,7 +6,7 @@ import Graphs from './pages/Graphs/Graphs';
 import Log from './pages/Log/Log';
 import Nav from './components/Nav/Nav';
 import { LocalStorageProvider } from './contexts/LocalStorageContext';
-
+import './App.css';
 
 const App = () => {
   return (
@@ -18,6 +18,7 @@ const App = () => {
           <Route exact path="/log/:id" element={<Log></Log>} />
           <Route exact path="/graps" element={<Graphs></Graphs>} />
         </Routes>
+        <Nav></Nav>
       </Router>
     </LocalStorageProvider>
   );
