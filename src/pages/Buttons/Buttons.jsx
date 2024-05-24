@@ -14,7 +14,7 @@ const Buttons = () => {
         const handleClick = () => {
           setData({ ...data, regs: [...data.regs, { text: reg.text, id: crypto.randomUUID(), date: new Date() }] });
         };
-
+        
         return <button key={reg.id} onClick={handleClick}>{reg.text}</button>;
       })}
     </div>
