@@ -9,16 +9,19 @@ const LogInput = () => {
 
     console.log(data)
     return (
-        <div>
+        <div className='logInputWrapper'>
             <form onSubmit={(e) => {
                 e.preventDefault();
                 const input = e.target.elements.input;
-                const newReg = { text: input.value, id: crypto.randomUUID(), date: new Date() };
-                setData({ ...data, regs: [...data.regs || [], newReg] })
-                input.value = '';
+                const value = input.value.trim();
+                if (value) {
+                    const newReg = { text: value, id: value+"_"+Date.now(), date: new Date() };
+                    setData({ ...data, regs: [...data.regs || [], newReg] })
+                    input.value = '';
+                }
             }}>
-                <input type="text" name="input" placeholder="Añade un log" />
-                <button type="submit">Guardar</button>
+                <input type="text" name="input" placeholder="Add a new log" />
+                <button type="submit">Add</button>
             </form>
         </div>
     )

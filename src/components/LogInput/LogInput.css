@@ -1,11 +1,5 @@
-form {
-    position: absolute;
-    bottom: 70px;
-    right: 20px;
-}
-
 form input {
-    width: 70vw;
+    width: 50vw;
     height: 40px;
     border-radius: 5px;
     padding: 0 10px;
@@ -17,4 +11,12 @@ form button {
     height: 40px;
     border-radius: 5px;
     margin-left: 10px;
+}
+.logInputWrapper {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: rgb(255, 255, 79);
+    padding: 15px 20px;
+    border-radius: 16px;
 }
