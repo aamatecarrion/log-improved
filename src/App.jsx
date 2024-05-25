@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Buttons from './pages/Buttons/Buttons';
 import Graphs from './pages/Graphs/Graphs';
@@ -11,15 +11,15 @@ import './App.css';
 const App = () => {
   return (
     <LocalStorageProvider>
-      <Router>
-        <Routes>
+      <BrowserRouter basename='/log-improved/'>
+        <Routes >
           <Route exact path="/" element={<Home></Home>} />
           <Route exact path="/buttons" element={<Buttons></Buttons>} />
           <Route exact path="/log/:id" element={<Log></Log>} />
           <Route exact path="/graphs" element={<Graphs></Graphs>} />
         </Routes>
         <Nav></Nav>
-      </Router>
+      </BrowserRouter>
     </LocalStorageProvider>
   );
 };
