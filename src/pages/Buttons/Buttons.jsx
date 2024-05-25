@@ -31,10 +31,10 @@ const Buttons = () => {
     <div className='buttonsWrapper'>
       {buttons.map((button) => {
         const handleClick = () => {
-          setData({ ...data, regs: [...(data?.regs || []), { text: button, id: button + "_" + Date.now(), date: new Date() }] });
+          setData({ ...data, regs: [...(data?.regs || []), { text: button, id: button + "_" + Date.now(), date: Date.now() }] });
         };
 
-        return <button className='button' key={button} onClick={handleClick}>{button}</button>;
+        return <button className='logButton' key={button} onClick={handleClick}>{button}</button>;
       })}
     </div>
   )

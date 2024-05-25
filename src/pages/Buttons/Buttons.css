@@ -1,0 +1,20 @@
+.logButton {
+    color: green;
+    margin: 5px;
+    padding: 15px 25px;
+    border: 1px solid green;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 32px;
+
+    
+}
+.buttonsWrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    margin-bottom: 90px;
+    justify-content: center;
+}

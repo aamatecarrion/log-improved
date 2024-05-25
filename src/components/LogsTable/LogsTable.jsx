@@ -10,11 +10,11 @@ const Logs = () => {
     <div className='tableWrapper'>
       <table>
         <tbody>
-          {data.regs && data.regs.sort((a, b) => new Date(b.date) - new Date(a.date)).map((reg) => {
+          {data.regs && data.regs.sort((a, b) => b.date - a.date).map((reg) => {
             return (
               <tr key={reg.id}>
                 <td>{reg.text}</td>
-                <td>{reg.date.toLocaleString()}</td>
+                <td>{new Date(reg.date).toLocaleString()}</td>
                 <td><Link to={`/log/${reg.id}`} >Ver</Link></td>
               </tr>
             )
