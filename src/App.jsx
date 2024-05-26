@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter, Navigate } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Buttons from './pages/Buttons/Buttons';
 import Graphs from './pages/Graphs/Graphs';
@@ -17,6 +17,7 @@ const App = () => {
           <Route exact path="/buttons" element={<Buttons></Buttons>} />
           <Route exact path="/log/:id" element={<Log></Log>} />
           <Route exact path="/graphs" element={<Graphs></Graphs>} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Nav></Nav>
       </BrowserRouter>

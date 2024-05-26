@@ -1,4 +1,4 @@
-// LocalStorageContext.js
+// LocalStorageContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
 
 // Crear el contexto
