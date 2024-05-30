@@ -7,6 +7,8 @@ import Log from './pages/Log/Log';
 import Nav from './components/Nav/Nav';
 import { LocalStorageProvider } from './contexts/LocalStorageContext';
 import './App.css';
+import GearShiftAutoScroll from './components/ScrollUp/ScrollUp';
+import ScrollUp from './components/ScrollUp/ScrollUp';
 
 const App = () => {
   return (
@@ -19,6 +21,7 @@ const App = () => {
           <Route exact path="/graphs" element={<Graphs></Graphs>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <ScrollUp></ScrollUp>
         <Nav></Nav>
       </BrowserRouter>
     </LocalStorageProvider>
