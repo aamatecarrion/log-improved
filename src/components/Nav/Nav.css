@@ -2,17 +2,26 @@ nav {
     position: fixed;
     bottom: 0;
     padding: 10px;
-    left: 0;
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    left: 0;
     width: 100%;
     background-color: aqua;
 }
 
+nav div:first-child {
+}
+
+nav div:last-child {
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+
 nav a:hover {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ede100;
+    color: #000000;
+    box-shadow: #000000 1px 1px 5px 1px;
 }
 
 nav a {
@@ -20,9 +29,24 @@ nav a {
     text-decoration: none;
     text-align: center;
     font-size: 18px;
-    margin-right: 20px;
-    border: #000000 1px solid;
-    border-radius: 5px;
+    margin-right: 15px;
+    
+    border-radius: 20px;
     background-color: rgb(168, 127, 255);
     padding: 10px;
+}
+
+.menuIconWrapper {
+    display: flex;
+    align-items: center;
+    background-color: #949494;
+    justify-content: center;
+    border-radius: 15px;
+    padding: 7px;
+    cursor: pointer;
+}
+.menuIconWrapper:hover {
+    background-color: #949494;
+    color: #ffffff;
+    box-shadow: #000000 1px 1px 5px 1px;
 }
