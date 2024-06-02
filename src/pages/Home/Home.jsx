@@ -3,14 +3,15 @@ import './Home.css'
 import LogsTable from '../../components/LogsTable/LogsTable'
 import { useContext } from 'react'
 import { LocalStorageContext } from '../../contexts/LocalStorageContext'
-import LogInput from '../../components/LogInput/LogInput'
+import AddButtonWithDialog from '../../components/AddButtonWithDialog/AddButtonWithDialog'
+
 const Home = () => {
 
   
   return (
     <div>
       <LogsTable></LogsTable>
-      <LogInput></LogInput>
+      <AddButtonWithDialog></AddButtonWithDialog>
     </div>
 
   )

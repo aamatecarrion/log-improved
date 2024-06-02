@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { LocalStorageContext } from '../../contexts/LocalStorageContext'
 import { Link } from 'react-router-dom'
 import './Nav.css'
-import MenuIcon from '@mui/icons-material/Menu';
+import BasicMenu from '../BasicMenu/BasicMenu'
 
 const Nav = () => {
 
@@ -12,9 +12,7 @@ const Nav = () => {
     console.log(data)
     return (
         <nav>
-            <div className='menuIconWrapper'>
-                <MenuIcon />
-            </div>
+            <BasicMenu />
             <div>
                 <Link to="/graphs">Graphs</Link>
                 <Link to="/buttons">Buttons</Link>

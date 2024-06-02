@@ -1,0 +1,19 @@
+.editableText {
+    /* Estilos para el contenedor principal del componente editable */
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .editableText__input {
+    /* Estilos para el input de texto cuando está en modo edición */
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  .editableText__display {
+    /* Estilos para el texto mostrado cuando no está en modo edición */
+    padding: 5px;
+    font-size: 16px;
+    cursor: text;
+  }

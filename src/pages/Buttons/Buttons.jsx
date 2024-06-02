@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Buttons.css'
 import { useContext } from 'react'
 import { LocalStorageContext } from '../../contexts/LocalStorageContext'
+import AlertDialog from '../../components/AlertDialog/AlertDialog'
 
 const Buttons = () => {
   const { data, setData } = useContext(LocalStorageContext)

@@ -9,6 +9,7 @@ import { LocalStorageProvider } from './contexts/LocalStorageContext';
 import './App.css';
 import GearShiftAutoScroll from './components/ScrollUp/ScrollUp';
 import ScrollUp from './components/ScrollUp/ScrollUp';
+import ExportJson from './pages/ExportJson/ExportJson';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route exact path="/buttons" element={<Buttons></Buttons>} />
           <Route exact path="/log/:id" element={<Log></Log>} />
           <Route exact path="/graphs" element={<Graphs></Graphs>} />
+          <Route exact path="/exportjson" element={<ExportJson></ExportJson>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <ScrollUp></ScrollUp>
