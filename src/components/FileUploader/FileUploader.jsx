@@ -15,9 +15,6 @@ const FileUploader = () => {
         const uniqueRegs = json.regs.filter(reg => !data.regs.find( existingReg => existingReg.id === reg.id));
         setData({ regs: [...data.regs, ...uniqueRegs] });
 
-
-
-        
       } catch (error) {
         console.error("Error parsing JSON:", error);
       }

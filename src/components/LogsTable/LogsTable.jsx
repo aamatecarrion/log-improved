@@ -8,6 +8,7 @@ const Logs = () => {
   const { data, setData } = useContext(LocalStorageContext)
   return (
     <div className='tableWrapper'>
+      
       <table>
         <tbody>
           {data.regs && data.regs.sort((a, b) => b.date - a.date).map((reg) => {
