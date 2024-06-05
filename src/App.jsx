@@ -10,6 +10,7 @@ import './App.css';
 import GearShiftAutoScroll from './components/ScrollUp/ScrollUp';
 import ScrollUp from './components/ScrollUp/ScrollUp';
 import ExportJson from './pages/ExportJson/ExportJson';
+import ImportJson from './pages/ImportJson/ImportJson';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route exact path="/log/:id" element={<Log></Log>} />
           <Route exact path="/graphs" element={<Graphs></Graphs>} />
           <Route exact path="/exportjson" element={<ExportJson></ExportJson>} />
+          <Route exact path="/importjson" element={<ImportJson></ImportJson>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <ScrollUp></ScrollUp>
