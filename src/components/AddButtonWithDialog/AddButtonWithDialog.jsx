@@ -21,6 +21,13 @@ function AddButtonWithDialog() {
         setText(event.target.value);
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleAdd();
+        }
+    };
+
     const addLog = () => {
         const trimmedValue = text.trim();
         if (trimmedValue) {
@@ -52,6 +59,7 @@ function AddButtonWithDialog() {
                         fullWidth
                         value={text}
                         onChange={handleTextChange}
+                        onKeyDown={handleKeyDown}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -68,3 +76,4 @@ function AddButtonWithDialog() {
 }
 
 export default AddButtonWithDialog;
+
