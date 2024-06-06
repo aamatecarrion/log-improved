@@ -6,35 +6,40 @@ const FileUploader = () => {
   const { data, setData } = useContext(LocalStorageContext);
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    const files = event.target.files;
     const reader = new FileReader();
 
-    reader.onload = (e) => {
-      try {
-        const json = JSON.parse(e.target.result);
-        const uniqueRegs = json.regs.filter(reg => !data.regs.find( existingReg => existingReg.id === reg.id));
-        setData({ regs: [...data.regs, ...uniqueRegs] });
+    const processFile = (file) => {
+      reader.onload = (e) => {
+        try {
+          const json = JSON.parse(e.target.result);
+          const uniqueRegs = json.regs.filter(reg => !data.regs.find( existingReg => existingReg.id === reg.id));
+          setData({ regs: [...data.regs, ...uniqueRegs] });
 
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+        }
+      };
+
+      if (file) {
+        reader.readAsText(file);
       }
     };
 
-    if (file) {
-      reader.readAsText(file);
-    }
+    Array.from(files).forEach(processFile);
   };
 
   return (
     <div>
       <Button variant="contained" onClick={() => document.getElementById('fileInput').click()}>
-        Select JSON File
+        Seleccionar archivos JSON
       </Button>
       <input
         id="fileInput"
         type="file"
         accept=".json"
         style={{ display: 'none' }}
+        multiple
         onChange={handleFileChange}
       />
     </div>
@@ -42,3 +47,4 @@ const FileUploader = () => {
 };
 
 export default FileUploader;
+

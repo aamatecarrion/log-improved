@@ -37,8 +37,8 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem component={Link} to="/importjson" onClick={handleClose}>Import data</MenuItem>
-        <MenuItem component={Link} to="/exportjson" onClick={handleClose}>Export data</MenuItem>
+        <MenuItem component={Link} to="/importjson" onClick={handleClose}>Importar datos</MenuItem>
+        <MenuItem component={Link} to="/exportjson" onClick={handleClose}>Exportar datos</MenuItem>
       </Menu>
     </div>
   );

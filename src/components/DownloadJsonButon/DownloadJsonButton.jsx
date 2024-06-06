@@ -31,7 +31,7 @@ const DownloadJsonButton = () => {
   };
 
   return (
-    <Button variant="contained" onClick={() => downloadJson(data, `data${Date.now()}.json`)}>Download JSON</Button>
+    <Button variant="contained" onClick={() => downloadJson(data, `data${Date.now()}.json`)}>Exportar a JSON</Button>
   );
 };
 

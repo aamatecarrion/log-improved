@@ -4,13 +4,14 @@ import LogsTable from '../../components/LogsTable/LogsTable'
 import { useContext } from 'react'
 import { LocalStorageContext } from '../../contexts/LocalStorageContext'
 import AddButtonWithDialog from '../../components/AddButtonWithDialog/AddButtonWithDialog'
+import CollapsibleTable from '../../components/CollapsibleTable/CollapsibleTable'
 
 const Home = () => {
 
   
   return (
     <div>
-      <LogsTable></LogsTable>
+      <CollapsibleTable></CollapsibleTable>
       <AddButtonWithDialog></AddButtonWithDialog>
     </div>
 

@@ -6,7 +6,7 @@ const ExportJson = () => {
   return (
     <div>
         <Typography variant="body1" gutterBottom>
-        This app stores it's data inside the browser's local storage in JSON format. You can download this data as a JSON file.
+        Esta aplicación guarda los datos en el almacenamiento local del navegador, estos datos se pueden exportar a un archivo JSON con este botón.
       </Typography>
 
       <DownloadJsonButton></DownloadJsonButton>
