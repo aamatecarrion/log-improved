@@ -4,7 +4,10 @@ import { LocalStorageContext } from '../../contexts/LocalStorageContext'
 import { Link } from 'react-router-dom'
 import './Nav.css'
 import BasicMenu from '../BasicMenu/BasicMenu'
-import { Button } from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Button, Paper } from '@mui/material'
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ArchiveIcon from '@mui/icons-material/Archive';
 
 const Nav = () => {
 
@@ -15,9 +18,9 @@ const Nav = () => {
         <nav>
             <BasicMenu />
             <div>
-                <Button variant="contained" component={Link} sx={{ marginRight: '8px'}} to="/graphs">Gráficos</Button>
-                <Button variant="contained" component={Link} sx={{ marginRight: '8px'}} to="/buttons">Botones</Button>
-                <Button variant="contained" component={Link} sx={{ marginRight: '16px'}} to="/">Home</Button>
+                
+                <Button variant="contained" component={Link} sx={{ marginRight: '8px' }} to="/buttons">Botones</Button>
+                <Button variant="contained" component={Link} sx={{ marginRight: '16px' }} to="/">Home</Button>
             </div>
         </nav>
     )
