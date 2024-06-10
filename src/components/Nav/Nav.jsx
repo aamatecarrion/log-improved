@@ -13,7 +13,6 @@ const Nav = () => {
 
     const { data } = useContext(LocalStorageContext)
 
-    console.log(data)
     return (
         <nav>
             <BasicMenu />

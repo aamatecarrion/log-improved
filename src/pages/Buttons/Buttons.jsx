@@ -4,9 +4,11 @@ import { useContext } from 'react'
 import { LocalStorageContext } from '../../contexts/LocalStorageContext'
 import AlertDialog from '../../components/AlertDialog/AlertDialog'
 import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const Buttons = () => {
   const { data, setData } = useContext(LocalStorageContext)
+  const navigate = useNavigate()
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
@@ -34,6 +36,7 @@ const Buttons = () => {
       {buttons.map((button) => {
         const handleClick = () => {
           setData({ ...data, regs: [...(data?.regs || []), { text: button, id: button + "_" + Date.now(), date: Date.now() }] });
+          navigate('/')
         };
         return <Button variant='contained' sx={{ margin: '8px' }} key={button} onClick={handleClick}>{button}</Button>
       })}

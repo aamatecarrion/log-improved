@@ -14,17 +14,19 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useContext } from 'react';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // Helper function to format date with day name
-const formatDate = (timestamp) => {
-  const date = new Date(timestamp);
-  const dayName = date.toLocaleDateString('default', { weekday: 'long' });
-  const formattedDate = date.toLocaleDateString().split('T')[0];
-  return `${dayName}, ${formattedDate}`;
-};
+//retorna yyyy-mm-dd a partir de una fecha unix en milisegundos
+function convertirTimestampAFecha(timestamp) {
+  const fecha = new Date(timestamp);
+  const year = fecha.getFullYear();
+  const month = (fecha.getMonth() + 1).toString().padStart(2, '0');
+  const day = fecha.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
-// Helper function to format time
+//retorna hh:mm a partir de una fecha unix
 const formatTime = (timestamp) => {
   const date = new Date(timestamp);
   return date.toTimeString().split(' ')[0].substring(0, 5); // HH:MM format
@@ -33,7 +35,7 @@ const formatTime = (timestamp) => {
 // Function to group records by day
 const groupRecordsByDay = (records) => {
   return records.reduce((acc, record) => {
-    const day = formatDate(record.date);
+    const day = convertirTimestampAFecha(record.date);
     if (!acc[day]) {
       acc[day] = [];
     }
@@ -43,8 +45,9 @@ const groupRecordsByDay = (records) => {
 };
 
 function DayRow(props) {
-  const { day, records } = props;
   const [open, setOpen] = React.useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <React.Fragment>
@@ -58,13 +61,14 @@ function DayRow(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" colSpan={5}>
-          <Typography variant="h6">{day}</Typography>
+        <TableCell component="th" scope="row" colSpan={4}>
+          <Typography variant="h6">{new Date(props.day).toLocaleDateString('es-ES', { weekday: 'long' })} {props.day}</Typography>
+
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Table size="small" aria-label="records">
                 <TableBody>
-                  {records.map((record, index) => (
+                  {props.records.sort((a, b) => b.date - a.date).map((record, index) => (
                     <TableRow
                       key={record.id}
                       sx={{
@@ -72,9 +76,10 @@ function DayRow(props) {
                         textDecorationLine: 'none',
                         '&:hover': {
                           backgroundColor: 'grey.400',
+                          cursor: 'pointer',
                         },
                       }}
-                    component={Link} to={`/log/${record.id}`}
+                      onClick={() => navigate(`log/${record.id}`)}
                     >
                       <TableCell>{formatTime(record.date)}</TableCell>
                       <TableCell>{record.text}</TableCell>
@@ -85,6 +90,7 @@ function DayRow(props) {
             </Box>
           </Collapse>
         </TableCell>
+        <TableCell component="th" scope="row">{props.records.length}</TableCell>
       </TableRow>
     </React.Fragment>
   );
@@ -107,17 +113,14 @@ export default function CollapsibleTable() {
   if (!data?.regs) {
     return <Typography>No data available</Typography>;
   }
-
   const groupedRecords = groupRecordsByDay(data.regs);
-
-  // Get the days sorted in descending order
-  const sortedDays = Object.keys(groupedRecords).sort((a, b) => new Date(b) - new Date(a));
+  const sortedUniqueDays = Object.keys(groupedRecords).sort().reverse();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ mb: 20 }}>
       <Table aria-label="collapsible table">
         <TableBody>
-          {sortedDays.map((day) => (
+          {sortedUniqueDays.map((day) => (
             <DayRow key={day} day={day} records={groupedRecords[day]} />
           ))}
         </TableBody>

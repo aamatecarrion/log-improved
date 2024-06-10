@@ -7,18 +7,25 @@ const FileUploader = () => {
 
   const handleFileChange = (event) => {
     const files = event.target.files;
-    const reader = new FileReader();
 
     const processFile = (file) => {
+      const reader = new FileReader();
+
       reader.onload = (e) => {
         try {
           const json = JSON.parse(e.target.result);
-          const uniqueRegs = json.regs.filter(reg => !data.regs.find( existingReg => existingReg.id === reg.id));
-          setData({ regs: [...data.regs, ...uniqueRegs] });
-
+          const existingRegs = data?.regs || [];
+          const uniqueRegs = json.regs.filter(
+            (reg) => !existingRegs.find((existingReg) => existingReg.id === reg.id)
+          );
+          setData({ regs: [...existingRegs, ...uniqueRegs] });
         } catch (error) {
           console.error("Error parsing JSON:", error);
         }
+      };
+
+      reader.onerror = (e) => {
+        console.error("Error reading file:", e);
       };
 
       if (file) {
@@ -47,4 +54,3 @@ const FileUploader = () => {
 };
 
 export default FileUploader;
-
