@@ -3,11 +3,10 @@ import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTit
 import AddIcon from '@mui/icons-material/Add';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 
-function EliminarConDialogo() {
+function EliminarConDialogo(props) {
 
     const { data, setData } = useContext(LocalStorageContext);
     const [open, setOpen] = useState(false);
-    const [text, setText] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -17,10 +16,6 @@ function EliminarConDialogo() {
         setOpen(false);
     };
 
-    const handleTextChange = (event) => {
-        setText(event.target.value);
-    };
-
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -28,16 +23,7 @@ function EliminarConDialogo() {
         }
     };
 
-    const addLog = () => {
-        const trimmedValue = text.trim();
-        if (trimmedValue) {
-            const newReg = { text: trimmedValue, id: trimmedValue + "_" + Date.now(), date: Date.now() };
-            setData({ ...data, regs: [...data.regs || [], newReg] })
-            setText('');
-        }
-
-    }
-
+    
     const handleAdd = () => {
         addLog();
         setOpen(false);
@@ -45,30 +31,20 @@ function EliminarConDialogo() {
 
     return (
         <div>
-            <Button sx={{ position: 'absolute', right: '8px' }} color='error'>Eliminar</Button>
-            <Fab color="primary" aria-label="add" onClick={handleClickOpen} style={{ position: 'fixed', bottom: 80, right: 30 }}>
-                <AddIcon />
-            </Fab>
+            <Button sx={{ position: 'absolute', right: '8px' }} onClick={handleClickOpen} color='error'>Eliminar</Button>
             <Dialog fullWidth={true} open={open} onClose={handleClose}>
-                <DialogTitle>Nuevo registro</DialogTitle>
+                <DialogTitle>Eliminar registro</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        label="Text"
-                        type="text"
-                        fullWidth
-                        value={text}
-                        onChange={handleTextChange}
-                        onKeyDown={handleKeyDown}
-                    />
+                    <DialogContentText>
+                        ¿Eliminar el registro "{}"
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
-                        Cancel
+                        Cancelar
                     </Button>
                     <Button onClick={handleAdd} color="primary">
-                        Add
+                        Registrar
                     </Button>
                 </DialogActions>
             </Dialog>

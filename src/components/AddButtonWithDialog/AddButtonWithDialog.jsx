@@ -48,7 +48,17 @@ function AddButtonWithDialog() {
             <Fab color="primary" aria-label="add" onClick={handleClickOpen} style={{ position: 'fixed', bottom: 80, right: 30 }}>
                 <AddIcon />
             </Fab>
-            <Dialog fullWidth={true} open={open} onClose={handleClose}>
+            <Dialog 
+                fullWidth={true} 
+                open={open} 
+                onClose={handleClose}
+                PaperProps={{
+                    style: {
+                        position: 'fixed',
+                        top: '1px'
+                    },
+                }}
+            >
                 <DialogTitle>Nuevo registro</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -64,10 +74,10 @@ function AddButtonWithDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
-                        Cancel
+                        Cancelar
                     </Button>
                     <Button onClick={handleAdd} color="primary">
-                        Add
+                        Guardar
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -76,4 +86,3 @@ function AddButtonWithDialog() {
 }
 
 export default AddButtonWithDialog;
-
