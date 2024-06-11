@@ -9,11 +9,11 @@ const TimeUnitSelector = (props) => {
                 name="timeUnit"
                 value={props.value}
                 onChange={props.fatherFunctionProp} >
-                <option value="seconds">Seconds</option>
-                <option value="minutes">Minutes</option>
-                <option value="hours">Hours</option>
-                <option value="days">Days</option>
-                <option value="months">Months</option>
+                <option value="seconds">Segundos</option>
+                <option value="minutes">Minutos</option>
+                <option value="hours">Horas</option>
+                <option value="days">Días</option>
+                <option value="months">Meses</option>
                 <option value="years">Years</option>
             </select>
 

@@ -30,7 +30,7 @@ const Log = () => {
     const seconds = fecha.getSeconds().toString().padStart(2, '0')
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
   }
-  console.log(detailedLog)
+
 
   return (
     <div>

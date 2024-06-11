@@ -10,23 +10,29 @@ function totalTimeAgo(date, unit) {
 
     switch (unit) {
         case 'seconds':
-            const totalSeconds = difference / 1000;
-            return `${totalSeconds.toFixed(1)} seconds ago`;
+            let totalSeconds = difference / 1000;
+            totalSeconds = totalSeconds.toFixed(1)
+            return `${totalSeconds} segundos`
         case 'minutes':
-            const totalMinutes = difference / 60000;
-            return `${totalMinutes.toFixed(2)} minutes ago`;
+            let totalMinutes = difference / 60000;
+            totalMinutes = totalMinutes.toFixed(2)
+            return `${totalMinutes} minutos`
         case 'hours':
-            const totalHours = difference / 3600000;
-            return `${totalHours.toFixed(4)} hours ago`;
+            let totalHours = difference / 3600000;
+            totalHours = totalHours.toFixed(4)
+            return `${totalHours} horas`
         case 'days':
-            const totalDays = difference / 86400000;
-            return `${totalDays.toFixed(5)} days ago`;
+            let totalDays = difference / 86400000;
+            totalDays = totalDays.toFixed(5)
+            return `${totalDays} días`
         case 'months':
-            const totalMonths = difference / 2592000000;
-            return `${totalMonths.toFixed(7)} months ago`;
+            let totalMonths = difference / 2592000000;
+            totalMonths = totalMonths.toFixed(7)
+            return `${totalMonths} meses`
         case 'years':
-            const totalYears = difference / 31536000000;
-            return `${totalYears.toFixed(8)} years ago`;
+            let totalYears = difference / 31536000000;
+            totalYears = totalYears.toFixed(8)
+            return `${totalYears} años`
         default:
             return "Invalid unit. Use 'seconds', 'minutes', 'hours', 'days', 'months' or 'years'.";
     }
