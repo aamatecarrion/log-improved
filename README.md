@@ -7,9 +7,16 @@ Esto es una app de react pensada para ser la sucesora de la app de registro de e
 This is a React app designed to be the successor to the event/activity logging app I developed in plain JavaScript. The main idea of the application is to be able to log events in the browser's localStorage without the need for any server, and to be able to export the data to a JSON file. Additionally, I want there to be a section where a series of graphs and calculated data can be viewed based on the collected data. The idea is for the application to serve a general purpose so that people can log whatever they want and become more aware of what they do with their lives.
 
 ![](https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/home.png)
+Pantalla de inicio
 ![](https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/nuevo_registro.png)
+Cuadro de nuevo registro
 ![](https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/detalles.png)
+Detalles del registro
 ![](https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/botones.png)
+Botones para añadir un registro rápidamente
 ![](https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/pantalla_exportacion.png)
+Pantalla para exportar los datos
 ![](https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/pantalla_importacion.png)
+Pantalla para importar los datos previamente exportados
 ![](https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/archivo_de_respaldo.png)
+Ejemplo de archivo de respaldo
