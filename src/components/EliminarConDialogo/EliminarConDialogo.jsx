@@ -3,7 +3,7 @@ import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTit
 import AddIcon from '@mui/icons-material/Add';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 
-function AddButtonWithDialog() {
+function EliminarConDialogo() {
 
     const { data, setData } = useContext(LocalStorageContext);
     const [open, setOpen] = useState(false);
@@ -45,6 +45,7 @@ function AddButtonWithDialog() {
 
     return (
         <div>
+            <Button sx={{ position: 'absolute', right: '8px' }} color='error'>Eliminar</Button>
             <Fab color="primary" aria-label="add" onClick={handleClickOpen} style={{ position: 'fixed', bottom: 80, right: 30 }}>
                 <AddIcon />
             </Fab>

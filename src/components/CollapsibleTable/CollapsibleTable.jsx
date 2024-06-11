@@ -15,16 +15,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useContext } from 'react';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 import { useNavigate } from 'react-router-dom';
-
+import { Icon } from '@mui/material';
+import convertirTimestampAFecha  from '../../utils/convertirTimestampAFecha';
 // Helper function to format date with day name
-//retorna yyyy-mm-dd a partir de una fecha unix en milisegundos
-function convertirTimestampAFecha(timestamp) {
-  const fecha = new Date(timestamp);
-  const year = fecha.getFullYear();
-  const month = (fecha.getMonth() + 1).toString().padStart(2, '0');
-  const day = fecha.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
 
 //retorna hh:mm a partir de una fecha unix
 const formatTime = (timestamp) => {
@@ -51,46 +44,46 @@ function DayRow(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset', userSelect: 'none' } }} onClick={() => setOpen(!open)}>
         <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
+          <Icon
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
+          </Icon>
         </TableCell>
-        <TableCell component="th" scope="row" colSpan={4}>
+        <TableCell component="th" scope="row" >
           <Typography variant="h6">{new Date(props.day).toLocaleDateString('es-ES', { weekday: 'long' })} {props.day}</Typography>
 
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Table size="small" aria-label="records">
-                <TableBody>
-                  {props.records.sort((a, b) => b.date - a.date).map((record, index) => (
-                    <TableRow
-                      key={record.id}
-                      sx={{
-                        backgroundColor: index % 2 === 0 ? 'grey.300' : 'white',
-                        textDecorationLine: 'none',
-                        '&:hover': {
-                          backgroundColor: 'grey.400',
-                          cursor: 'pointer',
-                        },
-                      }}
-                      onClick={() => navigate(`log/${record.id}`)}
-                    >
-                      <TableCell>{formatTime(record.date)}</TableCell>
-                      <TableCell>{record.text}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
         </TableCell>
         <TableCell component="th" scope="row">{props.records.length}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <Box sx={{ margin: 1, userSelect: 'none' }}>
+            <Table size="small" aria-label="records">
+              <TableBody>
+                {props.records.sort((a, b) => b.date - a.date).map((record, index) => (
+                  <TableRow
+                    key={record.id}
+                    sx={{
+                      backgroundColor: index % 2 === 0 ? 'grey.300' : 'white',
+                      textDecorationLine: 'none',
+                      '&:hover': {
+                        backgroundColor: 'grey.400',
+                      },
+                    }}
+                    onClick={() => navigate(`log/${record.id}`)}
+                  >
+                    <TableCell>{formatTime(record.date)}</TableCell>
+                    <TableCell>{record.text}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+        </Collapse>
+        </TableCell>
       </TableRow>
     </React.Fragment>
   );
@@ -111,13 +104,13 @@ export default function CollapsibleTable() {
   const { data } = useContext(LocalStorageContext);
 
   if (!data?.regs) {
-    return <Typography>No data available</Typography>;
+    return <Typography>No hay registros</Typography>;
   }
   const groupedRecords = groupRecordsByDay(data.regs);
   const sortedUniqueDays = Object.keys(groupedRecords).sort().reverse();
 
   return (
-    <TableContainer component={Paper} sx={{ mb: 20 }}>
+    <TableContainer component={Paper} sx={{ mb: 20, }}>
       <Table aria-label="collapsible table">
         <TableBody>
           {sortedUniqueDays.map((day) => (
