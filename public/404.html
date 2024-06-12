@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=./index.html" />
+    <title>Page Not Found</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
+    <p>Redireccionando...</p>
+    <script type="text/javascript">
+
+      var pathname = window.location.pathname;
+      var redirectUrl = '/log-improved/index.html';
+
+      window.location.replace(redirectUrl + '?redirect=' + pathname);
+    </script>
   </body>
 </html>
