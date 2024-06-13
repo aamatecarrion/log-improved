@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
+import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button, Autocomplete } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
+import useGetUnique from '../../hooks/useGetUnique';
 
 function AddButtonWithDialog() {
-
+    const uniqueSorted = useGetUnique()
     const { data, setData } = useContext(LocalStorageContext);
     const [open, setOpen] = useState(false);
     const [text, setText] = useState('');
@@ -48,9 +49,9 @@ function AddButtonWithDialog() {
             <Fab color="primary" aria-label="add" onClick={handleClickOpen} style={{ position: 'fixed', bottom: 80, right: 30 }}>
                 <AddIcon />
             </Fab>
-            <Dialog 
-                fullWidth={true} 
-                open={open} 
+            <Dialog
+                fullWidth={true}
+                open={open}
                 onClose={handleClose}
                 PaperProps={{
                     style: {
@@ -61,15 +62,19 @@ function AddButtonWithDialog() {
             >
                 <DialogTitle>Nuevo registro</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        label="Text"
-                        type="text"
-                        fullWidth
-                        value={text}
-                        onChange={handleTextChange}
-                        onKeyDown={handleKeyDown}
+                    <Autocomplete
+                        id="free-solo-demo"
+                        freeSolo
+                        options={uniqueSorted}
+                        renderInput={(params) => <TextField
+                            margin='dense'
+                            label=""
+                            autoFocus
+                            {...params}
+                            fullWidth
+                            value={text}
+                            onChange={handleTextChange}
+                            onKeyDown={handleKeyDown} />}
                     />
                 </DialogContent>
                 <DialogActions>

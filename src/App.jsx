@@ -17,7 +17,6 @@ const App = () => {
       <BrowserRouter basename='/log-improved/'>
         <Routes >
           <Route exact path="/" element={<Home></Home>} />
-          <Route exact path="/buttons" element={<Buttons></Buttons>} />
           <Route exact path="/log/:id" element={<Log></Log>} />
           <Route exact path="/exportjson" element={<ExportJson></ExportJson>} />
           <Route exact path="/importjson" element={<ImportJson></ImportJson>} />

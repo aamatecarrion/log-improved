@@ -18,7 +18,6 @@ const Nav = () => {
             <BasicMenu />
             <div>
                 
-                <Button variant="contained" component={Link} sx={{ marginRight: '8px' }} to="/buttons">Botones</Button>
                 <Button variant="contained" component={Link} sx={{ marginRight: '16px' }} to="/">Home</Button>
             </div>
         </nav>

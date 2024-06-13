@@ -14,6 +14,7 @@ const Buttons = () => {
   }, []);
 
   const [buttons, setButtons] = useState([])
+  
   useEffect(() => {
     if (data && data.regs) {
       const buttonList = data.regs.map((reg) => reg.text)
