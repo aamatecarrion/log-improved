@@ -9,6 +9,7 @@ import TimeAgo from '../../components/TimeAgo/TimeAgo'
 import TimeUnitSelector from '../../components/TimeUnitSelector/TimeUnitSelector'
 import TotalTimeAgo from '../../components/TotalTimeAgo/TotalTimeAgo'
 import { Button, Card, Typography } from '@mui/material'
+import EliminarConDialogo from '../../components/EliminarConDialogo/EliminarConDialogo'
 
 const Log = () => {
   const { data } = useContext(LocalStorageContext)
@@ -35,7 +36,7 @@ const Log = () => {
   return (
     <div>
       <Button variant='contained' onClick={() => window.history.back()}>Volver</Button>
-      
+      <EliminarConDialogo registro={detailedLog}></EliminarConDialogo>
       <Card sx={{ pl: '8px', pr: '8px', mt: '8px' }}>
         <Typography variant='h4'>{detailedLog.text}</Typography>
         <p>{formatearFecha(detailedLog.date)}</p>
