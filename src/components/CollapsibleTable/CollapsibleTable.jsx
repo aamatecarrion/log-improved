@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
+import { purple } from '@mui/material/colors';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -67,10 +68,10 @@ function DayRow(props) {
                   <TableRow
                     key={record.id}
                     sx={{
-                      backgroundColor: index % 2 === 0 ? 'grey.300' : 'white',
+                      backgroundColor: index % 2 === 0 ? purple['A100'] : purple['A200'],
                       textDecorationLine: 'none',
                       '&:hover': {
-                        backgroundColor: 'grey.400',
+                        backgroundColor: purple['A400'],
                       },
                     }}
                     onClick={() => navigate(`log/${record.id}`)}
