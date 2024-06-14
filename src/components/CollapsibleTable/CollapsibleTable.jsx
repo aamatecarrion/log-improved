@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import { purple } from '@mui/material/colors';
+import formatTime from '../../utils/formatTime';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -17,19 +18,13 @@ import { useContext } from 'react';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@mui/material';
-import convertirTimestampAFecha  from '../../utils/convertirTimestampAFecha';
-// Helper function to format date with day name
+import formatDate  from '../../utils/formatDate';
 
-//retorna hh:mm a partir de una fecha unix
-const formatTime = (timestamp) => {
-  const date = new Date(timestamp);
-  return date.toTimeString().split(' ')[0].substring(0, 5); // HH:MM format
-};
 
 // Function to group records by day
 const groupRecordsByDay = (records) => {
   return records.reduce((acc, record) => {
-    const day = convertirTimestampAFecha(record.date);
+    const day = formatDate(record.date);
     if (!acc[day]) {
       acc[day] = [];
     }

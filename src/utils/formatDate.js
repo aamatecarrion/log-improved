@@ -1,4 +1,4 @@
-function convertirTimestampAFecha(timestamp) {
+function formatDate(timestamp) {
     const fecha = new Date(timestamp);
     const year = fecha.getFullYear();
     const month = (fecha.getMonth() + 1).toString().padStart(2, '0');
@@ -6,4 +6,4 @@ function convertirTimestampAFecha(timestamp) {
     return `${year}-${month}-${day}`;
 }
 
-export default convertirTimestampAFecha
+export default formatDate
