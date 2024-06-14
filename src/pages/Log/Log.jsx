@@ -39,7 +39,7 @@ const Log = () => {
 
   return (
     <div>
-      <Button variant='contained' onClick={() => window.history.back()}>Volver</Button>
+      <Button variant='contained' onClick={() => navigate('/')}>Volver</Button>
       <EliminarConDialogo registro={detailedLog}></EliminarConDialogo>
       <Card sx={{ pl: '8px', pr: '8px', mt: '8px' }}>
         <Typography variant='h4'>{detailedLog.text}</Typography>

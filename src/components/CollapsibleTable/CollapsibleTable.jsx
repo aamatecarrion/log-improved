@@ -18,7 +18,7 @@ import { useContext } from 'react';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@mui/material';
-import convertirTimestampAFecha  from '../../utils/convertirTimestampAFecha';
+import formatDate from '../../utils/formatDate';
 // Helper function to format date with day name
 
 
