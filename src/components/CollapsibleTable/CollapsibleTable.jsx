@@ -18,7 +18,8 @@ import { useContext } from 'react';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@mui/material';
-import formatDate  from '../../utils/formatDate';
+import convertirTimestampAFecha  from '../../utils/convertirTimestampAFecha';
+// Helper function to format date with day name
 
 
 // Function to group records by day
@@ -34,13 +35,13 @@ const groupRecordsByDay = (records) => {
 };
 
 function DayRow(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const navigate = useNavigate();
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset', userSelect: 'none' } }} onClick={() => setOpen(!open)}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset', padding: "10px", userSelect: 'none' } }} onClick={() => setOpen(!open)}>
         <TableCell>
           <Icon
           >
@@ -55,7 +56,7 @@ function DayRow(props) {
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout={100} unmountOnExit>
           <Box sx={{ margin: 1, userSelect: 'none' }}>
             <Table size="small" aria-label="records">
               <TableBody>
