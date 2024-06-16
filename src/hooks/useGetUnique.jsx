@@ -16,7 +16,6 @@ const useGetUnique = () => {
       }
     } catch (error) {
       console.error("Error getting unique texts:", error);
-      console.log("no sapodido hacer eso")
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
+
 
 
 /**
@@ -9,7 +10,19 @@ import { Button } from '@mui/material';
  */
 const DownloadJsonButton = () => {
   const { data, setData } = useContext(LocalStorageContext);
-
+  const printFilenameDate = () => {
+    const date = new Date();
+    const weekday = new Intl.DateTimeFormat(undefined, { weekday: 'long' }).format(date);
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
+    const formattedDate = `${year}-${month}-${day}_${hours}-${minutes}-${seconds}_${milliseconds}_${weekday}`;
+    return formattedDate
+  }
   /**
    * Converts the provided data object to a JSON string and triggers
    * a download of the JSON as a file with the specified filename.
@@ -31,7 +44,14 @@ const DownloadJsonButton = () => {
   };
 
   return (
-    <Button variant="contained" onClick={() => downloadJson(data, `data${Date.now()}.json`)}>Exportar a JSON</Button>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', height: '60vh' }}>
+      <Button variant="contained" onClick={() => downloadJson(data, `data_log-improved_${printFilenameDate()}.json`)} sx={{
+        width: '300px', // Ajusta el tamaño del botón
+        height: '300px',
+        borderRadius: '50%', // Hace el botón redondo
+        fontSize: '30px', // Ajusta el tamaño del texto
+      }}>Exportar a JSON</Button>
+    </Box>
   );
 };
 

@@ -41,27 +41,27 @@ function DayRow(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset', padding: "10px", userSelect: 'none' } }} onClick={() => setOpen(!open)}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset', padding: "2px", userSelect: 'none' }, fontSize: '14px' }} onClick={() => setOpen(!open)}>
         <TableCell>
           <Icon
+            sx={{ ml: 1, fontSize: '20px' }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </Icon>
         </TableCell>
         <TableCell component="th" scope="row" >
           <Typography variant="h6">{new Date(props.day).toLocaleDateString('es-ES', { weekday: 'long' })} {props.day}</Typography>
-
         </TableCell>
         <TableCell component="th" scope="row">{props.records.length}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
+        <TableCell style={{ padding: 0 }} colSpan={3}>
         <Collapse in={open} timeout={100} unmountOnExit>
-          <Box sx={{ margin: 1, userSelect: 'none' }}>
-            <Table size="small" aria-label="records">
+            <Table sx={{ margin: 0, userSelect: 'none' }} size="small" aria-label="records">
               <TableBody>
                 {props.records.sort((a, b) => b.date - a.date).map((record, index) => (
-                  <TableRow
+                  
+                   <TableRow
                     key={record.id}
                     sx={{
                       backgroundColor: index % 2 === 0 ? purple['A100'] : purple['A200'],
@@ -78,7 +78,6 @@ function DayRow(props) {
                 ))}
               </TableBody>
             </Table>
-          </Box>
         </Collapse>
         </TableCell>
       </TableRow>
@@ -118,3 +117,4 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
+

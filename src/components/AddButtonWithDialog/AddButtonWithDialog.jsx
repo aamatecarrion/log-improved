@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   TextField,
   Button,
   Autocomplete,
@@ -20,36 +19,48 @@ function AddButtonWithDialog() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [text, setText] = useState("");
   const [addMode, setAddMode] = useState(true);
-  const autoCompleteRef = useRef(null);
+  const textFieldRef = useRef(null);
 
   const handleClick = () => {
     if (addMode) {
       setDialogOpen(true);
+      setText(""); // Clear the text when opening the dialog
     } else {
       scrollUp();
     }
   };
 
+  // Focus the text field when the dialog opens
+  useEffect(() => {
+    if (dialogOpen && textFieldRef.current) {
+      textFieldRef.current.focus();
+    }
+  }, [dialogOpen]);
+
+  // Add scroll event listener
   useEffect(() => {
     window.addEventListener("scroll", handleScrollEvent);
-
     return () => {
       window.removeEventListener("scroll", handleScrollEvent);
     };
   }, []);
 
-  useEffect(() => {
-    if (dialogOpen && autoCompleteRef.current) {
-      autoCompleteRef.current.focus(); // Focus the text field when the dialog opens
-      autoCompleteRef.current.select(); // Select all text when the dialog opens
-      autoCompleteRef.current.setSelectionRange(0, 0); // Place the cursor at the beginning of the text when the dialog opens
-    }
-  }, [dialogOpen]);
-
+  // Add scroll event handler
   const handleScrollEvent = () => {
-    setAddMode(window.scrollY > 100 ? false : true);
+    setAddMode(window.scrollY > 10 ? false : true);
   };
 
+  // Update state when autocomplete input changes
+  const handleAutocompleteChange = (event, newValue) => {
+    setText(newValue);
+  };
+
+  // Update state when text field input changes
+  const handleTextFieldChange = (event) => {
+    setText(event.target.value);
+  };
+
+  // Add scroll up function
   const scrollUp = () => {
     window.scrollTo({
       top: 0,
@@ -57,32 +68,38 @@ function AddButtonWithDialog() {
     });
   };
 
+  // Add dialog close handler
   const handleClose = () => {
     setDialogOpen(false);
+    setText(""); // Clear the text when closing the dialog
   };
 
-  const handleTextChange = (event, newValue) => {
-    if (event && event.target) {
-      setText(event.target.value);
-    }
-  };
-
+  // Add log function
   const addLog = () => {
-    const trimmedValue = text.trim();
+    const trimmedValue = text?.trim();
     if (trimmedValue) {
+      const dateNow = Date.now();
       const newReg = {
         text: trimmedValue,
-        id: trimmedValue + "_" + Date.now(),
-        date: Date.now(),
+        id: trimmedValue + "_" + dateNow,
+        date: dateNow,
       };
       setData({ ...data, regs: [...(data.regs || []), newReg] });
     }
   };
 
+  // Add button click handler
   const handleAdd = () => {
     addLog();
     setDialogOpen(false);
-    setText("");
+    setText(""); // Clear the text after adding
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleAdd();
+    }
   };
 
   return (
@@ -96,44 +113,40 @@ function AddButtonWithDialog() {
         {addMode ? <AddIcon /> : <ArrowUpwardIcon />}
       </Fab>
       <Dialog
-        fullWidth={true}
+        fullWidth
         open={dialogOpen}
         onClose={handleClose}
         PaperProps={{
           style: {
             position: "fixed",
-            top: "1px",
+            top: 0
           },
         }}
       >
-        <DialogTitle>Nuevo registro</DialogTitle>
         <DialogContent>
           <Autocomplete
-            id="free-solo-demo"
+            id="free-solo-autocomplete"
             freeSolo
-            ref={autoCompleteRef}
+            autoFocus
+            onInputChange={handleAutocompleteChange} // Use onInputChange instead of onChange
+            inputValue={text} // Bind inputValue to the state
             options={uniqueSorted}
-            inputValue={text || ""} // Ensure text is never null
-            onInputChange={handleTextChange}
-            onChange={(event, newValue) => setText(newValue || "")} // Ensure newValue is never null
             renderInput={(params) => (
               <TextField
+                id="free-solo-text-field"
                 margin="dense"
-                label=""
-                inputRef={autoCompleteRef}
-                autoFocus
                 {...params}
                 fullWidth
+                inputRef={textFieldRef} // Set the ref to the TextField
+                onChange={handleTextFieldChange}
+                onKeyDown={handleKeyDown}
               />
             )}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={handleAdd} variant="contained" disabled={!text} color="primary">
-            Guardar
+          <Button onClick={handleAdd} variant="contained" fullWidth disabled={!text} color="primary">
+            <AddIcon sx={{ fontSize: "40px" }} />
           </Button>
         </DialogActions>
       </Dialog>

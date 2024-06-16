@@ -1,17 +1,18 @@
 import React from 'react'
 import DownloadJsonButton from '../../components/DownloadJsonButon/DownloadJsonButton'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import { PinnedPosition } from '@mui/x-data-grid/components/cell/GridCell'
 
 const ExportJson = () => {
   return (
-    <div>
+    <Box>
       <Typography variant="body1" gutterBottom>
         Esta aplicación guarda los datos en el almacenamiento local del navegador, estos datos se pueden exportar a un archivo JSON con este botón.
       </Typography>
 
       <DownloadJsonButton></DownloadJsonButton>
-    </div>
+    </Box>
   )
 }
 
-export default ExportJson
+export  default ExportJson
