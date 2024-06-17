@@ -61,9 +61,9 @@ const Log = () => {
                       if (record.id === detailedLog.id) {
                         return blue[300];
                       } else if (index % 2 === 0) {
-                        return purple['A100'];
+                        return 'white';
                       } else {
-                        return purple['A200'];
+                        return 'white';
                       }
                     })(),
               textDecorationLine: 'none',

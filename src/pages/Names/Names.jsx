@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import { useContext } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { LocalStorageContext } from '../../contexts/LocalStorageContext';
-import { useContext } from 'react';
 import useGetUnique from '../../hooks/useGetUnique';
 
 const columns = [
@@ -23,6 +24,7 @@ const columns = [
 
 
 export default function Names() {
+    const navigate = useNavigate();
     const uniqueRegs = useGetUnique([])
     const { data } = useContext(LocalStorageContext)
 
@@ -33,6 +35,10 @@ export default function Names() {
     const rows = uniqueRegs.map((reg) => {
         return ({ id: reg, count: count(reg) })
     })
+
+    const handleRowClick = (params) => {
+        navigate(`/name/${params.row.id}`)
+    }
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -47,8 +53,10 @@ export default function Names() {
                     },
                 }}
                 pageSizeOptions={[100]}
+                onRowClick={handleRowClick}
                 disableRowSelectionOnClick
             />
         </Box>
     );
 }
+

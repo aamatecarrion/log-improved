@@ -6,7 +6,7 @@ nav {
     align-items: center;
     left: 0;
     width: 100%;
-    background-color: hsl(295, 100%, 69%);
+    background-color: #96d5ff
 }
 
 nav div:first-child {
@@ -15,13 +15,6 @@ nav div:first-child {
 nav div:last-child {
     margin-left: auto;
     margin-right: 5px;
-}
-
-
-nav a:hover {
-    background-color: #ede100;
-    color: #000000;
-    box-shadow: #000000 1px 1px 5px 1px;
 }
 
 nav a {
