@@ -13,6 +13,9 @@ import { Box, Button, Card, CardContent, Table, TableCell, TableBody, TableRow, 
 import EliminarConDialogo from '../../components/EliminarConDialogo/EliminarConDialogo'
 import { blue, purple } from '@mui/material/colors'
 import formatDate from '../../utils/formatDate'
+import { DateCalendar } from '@mui/x-date-pickers'
+import dayjs from 'dayjs'
+
 
 const Log = () => {
   const { data } = useContext(LocalStorageContext)
@@ -84,6 +87,9 @@ const Log = () => {
           </TableBody>
         </Table>
       </Box>
+    </Card>
+    <Card>
+    <DateCalendar showDaysOutsideCurrentMonth value={dayjs(formatearFecha(detailedLog.date))} readOnly />
     </Card>
     </div >
   )

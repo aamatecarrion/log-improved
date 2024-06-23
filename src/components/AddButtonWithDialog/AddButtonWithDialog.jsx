@@ -4,13 +4,20 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   TextField,
   Button,
   Autocomplete,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { MobileDateTimePicker } from '@mui/x-date-pickers';
+
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 import { LocalStorageContext } from "../../contexts/LocalStorageContext";
 import useGetUnique from "../../hooks/useGetUnique";
 
@@ -21,10 +28,11 @@ function AddButtonWithDialog() {
   const [text, setText] = useState("");
   const [addMode, setAddMode] = useState(true);
   const autoCompleteRef = useRef(null);
-
+  const [fecha, setFecha] = useState(null);
   const handleClick = () => {
     if (addMode) {
       setDialogOpen(true);
+      setText("");
     } else {
       scrollUp();
     }
@@ -41,7 +49,6 @@ function AddButtonWithDialog() {
   useEffect(() => {
     if (dialogOpen && autoCompleteRef.current) {
       autoCompleteRef.current.focus(); // Focus the text field when the dialog opens
-      autoCompleteRef.current.select(); // Select all text when the dialog opens
       autoCompleteRef.current.setSelectionRange(0, 0); // Place the cursor at the beginning of the text when the dialog opens
     }
   }, [dialogOpen]);
@@ -59,6 +66,8 @@ function AddButtonWithDialog() {
 
   const handleClose = () => {
     setDialogOpen(false);
+    setText("");
+    setFecha(null);
   };
 
   const handleTextChange = (event, newValue) => {
@@ -68,26 +77,28 @@ function AddButtonWithDialog() {
   };
 
   const addLog = () => {
+    const fechaAdd = fecha ? new Date(fecha).getTime() : Date.now();
     const trimmedValue = text.trim();
     if (trimmedValue) {
       const newReg = {
         text: trimmedValue,
-        id: trimmedValue + "_" + Date.now(),
-        date: Date.now(),
+        id: trimmedValue + "_" + fechaAdd,
+        date: fechaAdd,
       };
       setData({ ...data, regs: [...(data.regs || []), newReg] });
     }
+    handleClose();
   };
+
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
       handleAdd();
     }
   };
+
   const handleAdd = () => {
     addLog();
-    setDialogOpen(false);
-    setText("");
   };
 
   return (
@@ -111,7 +122,7 @@ function AddButtonWithDialog() {
           },
         }}
       >
-      <DialogContent>
+        <DialogContent>
           <Autocomplete
             id="free-solo-demo"
             freeSolo
@@ -133,8 +144,16 @@ function AddButtonWithDialog() {
             )}
           />
         </DialogContent>
+        <MobileDateTimePicker showDaysOutsideCurrentMonth ampm={false} value={fecha} onChange={(newValue) => setFecha(newValue)}>
+        </MobileDateTimePicker>
         <DialogActions>
-          <Button sx={{ marginRight: 2 }}onClick={handleAdd} variant="contained" disabled={!text} color="primary">
+          <Button
+            sx={{ marginRight: 2 }}
+            onClick={handleAdd}
+            variant="contained"
+            disabled={!text}
+            color="primary"
+          >
             Guardar
           </Button>
         </DialogActions>

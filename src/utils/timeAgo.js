@@ -6,6 +6,7 @@ function timeAgo(date) {
         return "Fecha inválida";
     }
 
+
     let difference = Math.abs(now - givenDate);
 
     const seconds = Math.floor(difference / 1000);
@@ -45,7 +46,7 @@ function timeAgo(date) {
     }
     const result = `${yearsFormat()} ${monthsFormat()} ${daysFormat()} ${hoursFormat()} ${minutesFormat()} ${secondsFormat()}`
 
-    return `Hace ${result}`
+    return `${now > givenDate ? 'Hace ' : 'Quedan'} ${result}`
 }
 
 export default timeAgo;

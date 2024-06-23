@@ -4,6 +4,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 
 export default function BasicMenu() {
@@ -37,6 +39,7 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem component={Link} to="/settings" onClick={handleClose}><SettingsIcon/>&nbsp;Settings</MenuItem>
         <MenuItem component={Link} to="/importjson" onClick={handleClose}>Importar datos</MenuItem>
         <MenuItem component={Link} to="/exportjson" onClick={handleClose}>Exportar datos</MenuItem>
       </Menu>

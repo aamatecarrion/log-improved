@@ -1,26 +1,27 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { LocalStorageContext } from '../contexts/LocalStorageContext'
 
 const useColors = () => {
-    const {data, setData} = useContext(LocalStorageContext)
+    const { data, setData } = useContext(LocalStorageContext)
     const initialColors = data?.colors || {
-        colorLunes: "#000",
-        colorMartes: "#000",
-        colorMiercoles: "#000",
-        colorJueves: "#000",
-        colorViernes: "#000",
-        colorSabado: "#000",
-        colorDomingo: "#000",
+        colorLunes: "#FFF",
+        colorMartes: "#FFF",
+        colorMiercoles: "#FFF",
+        colorJueves: "#FFF",
+        colorViernes: "#FFF",
+        colorSabado: "#FFF",
+        colorDomingo: "#FFF",
     }
     const [colors, setColors] = useState(initialColors)
+    useEffect(() => {
+        setData({ ...data, colors: colors })
+    }, [colors])
 
-    const handleColorChange = (color, day) => {
-        const newColors = {...colors, [day]: color}
+    const colorChange = (day, color) => {
+        const newColors = { ...colors, [day]: color }
         setColors(newColors)
-        setData({...data, colors: newColors})
     }
-
-    return {colors, colorChange}
+    return { colors, colorChange }
 }
 
 export default useColors

@@ -19,6 +19,7 @@ import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@mui/material';
 import formatDate from '../../utils/formatDate';
+import useColors from '../../hooks/useColors';
 // Helper function to format date with day name
 
 
@@ -35,12 +36,15 @@ const groupRecordsByDay = (records) => {
 };
 
 function DayRow(props) {
-
+  
+  const colors = useColors()
   const navigate = useNavigate();
-
+  console.log(props.day)
+  const dayColor = colors[new Date(props.day).getDay()]
+  console.log(dayColor)
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset', userSelect: 'none' }, fontSize: '14px' }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset', backgroundColor: dayColor, userSelect: 'none' }, fontSize: '14px' }}>
         
         <TableCell component="th" scope="row" >
           <Typography variant="h6">{new Date(props.day).toLocaleDateString('es-ES', { weekday: 'long' })} {props.day}</Typography>
@@ -111,3 +115,4 @@ export default function LogsTable() {
   );
 }
 
+    
