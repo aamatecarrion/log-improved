@@ -16,7 +16,7 @@ const LocalStorageProvider = ({ children }) => {
             return {};
         }
     });
-    
+
     useEffect(() => {
         try {
             // Guardar datos en el localStorage cuando cambien

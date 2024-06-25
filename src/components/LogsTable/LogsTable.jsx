@@ -60,13 +60,7 @@ function DayRow(props) {
                   
                    <TableRow
                     key={record.id}
-                    sx={{
-                      backgroundColor: 'white',
-                      textDecorationLine: 'none',
-                      '&:hover': {
-                        backgroundColor: 'white',
-                      },
-                    }}
+                    
                     onClick={() => navigate(`log/${record.id}`)}
                   >
                     <TableCell>{formatTime(record.date)}</TableCell>
