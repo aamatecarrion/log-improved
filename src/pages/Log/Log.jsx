@@ -89,7 +89,7 @@ const Log = () => {
       </Box>
     </Card>
     <Card>
-    <DateCalendar showDaysOutsideCurrentMonth value={dayjs(formatearFecha(detailedLog.date))} readOnly />
+    <DateCalendar showDaysOutsideCurrentMonth sx={{ mb: '300px' }} value={dayjs(formatearFecha(detailedLog.date))} readOnly />
     </Card>
     </div >
   )
