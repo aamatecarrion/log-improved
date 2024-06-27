@@ -26,7 +26,8 @@ import useColors from '../../hooks/useColors';
 // Function to group records by day
 const groupRecordsByDay = (records) => {
   return records.reduce((acc, record) => {
-    const day = formatDate(record.date);
+    const day = new Date(record.date);
+    day.setHours(0, 0, 0, 0);
     if (!acc[day]) {
       acc[day] = [];
     }
@@ -34,18 +35,34 @@ const groupRecordsByDay = (records) => {
     return acc;
   }, {});
 };
+function getDaysBetweenDates(startDate) {
+  const dates = [];
+
+  const startDateObject = new Date(startDate);
+  startDateObject.setHours(0, 0, 0, 0);
+
+  const endDateObject = new Date();
+  endDateObject.setHours(0, 0, 0, 0);
+
+  const sumador = new Date(startDateObject);
+  while (sumador <= endDateObject) {
+    dates.push({ date: new Date(sumador) });
+    sumador.setDate(sumador.getDate() + 1);
+  }
+  return dates
+}
 
 function DayRow(props) {
-  
+
   const colors = useColors()
   const navigate = useNavigate();
-  console.log(props.day)
+
   const dayColor = colors[new Date(props.day).getDay()]
-  console.log(dayColor)
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset', backgroundColor: dayColor, userSelect: 'none' }, fontSize: '14px' }}>
-        
+
         <TableCell component="th" scope="row" >
           <Typography variant="h6">{new Date(props.day).toLocaleDateString('es-ES', { weekday: 'long' })} {props.day}</Typography>
         </TableCell>
@@ -53,23 +70,23 @@ function DayRow(props) {
       </TableRow>
       <TableRow>
         <TableCell style={{ padding: 0 }} colSpan={3}>
-        
-            <Table sx={{ margin: 0, userSelect: 'none' }} size="small" aria-label="records">
-              <TableBody>
-                {props.records.sort((a, b) => b.date - a.date).map((record, index) => (
-                  
-                   <TableRow
-                    key={record.id}
-                    
-                    onClick={() => navigate(`log/${record.id}`)}
-                  >
-                    <TableCell>{formatTime(record.date)}</TableCell>
-                    <TableCell>{record.text}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-        
+
+          <Table sx={{ margin: 0, userSelect: 'none' }} size="small" aria-label="records">
+            <TableBody>
+              {props.records.sort((a, b) => b.date - a.date).map((record, index) => (
+
+                <TableRow
+                  key={record.id}
+
+                  onClick={() => navigate(`log/${record.id}`)}
+                >
+                  <TableCell>{formatTime(record.date)}</TableCell>
+                  <TableCell>{record.text}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
         </TableCell>
       </TableRow>
     </React.Fragment>
@@ -94,7 +111,9 @@ export default function LogsTable() {
     return <Typography>No hay registros</Typography>;
   }
   const groupedRecords = groupRecordsByDay(data.regs);
-  const sortedUniqueDays = Object.keys(groupedRecords).sort().reverse();
+  
+
+  const sortedUniqueDays = getDaysBetweenDates(data.regs[0].date)
 
   return (
     <TableContainer component={Paper} sx={{ mb: 20, }}>
@@ -109,4 +128,3 @@ export default function LogsTable() {
   );
 }
 
-    

@@ -75,7 +75,7 @@ const Log = () => {
                     },
                   }}
               onClick={() => {
-                console.log(`/log/${record.id}`)
+                
                 navigate(`/log/${record.id}`)
               }}
                 >
