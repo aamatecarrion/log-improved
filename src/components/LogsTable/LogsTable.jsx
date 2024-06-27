@@ -20,21 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from '@mui/material';
 import formatDate from '../../utils/formatDate';
 import useColors from '../../hooks/useColors';
-// Helper function to format date with day name
 
-
-// Function to group records by day
-const groupRecordsByDay = (records) => {
-  return records.reduce((acc, record) => {
-    const day = new Date(record.date);
-    day.setHours(0, 0, 0, 0);
-    if (!acc[day]) {
-      acc[day] = [];
-    }
-    acc[day].push(record);
-    return acc;
-  }, {});
-};
 function getDaysBetweenDates(startDate) {
   const dates = [];
 
@@ -46,34 +32,39 @@ function getDaysBetweenDates(startDate) {
 
   const sumador = new Date(startDateObject);
   while (sumador <= endDateObject) {
-    dates.push({ date: new Date(sumador) });
+    dates.push( new Date(sumador).toDateString() );
     sumador.setDate(sumador.getDate() + 1);
   }
   return dates
 }
 
 function DayRow(props) {
+  
+
 
   const colors = useColors()
   const navigate = useNavigate();
+  const { data } = useContext(LocalStorageContext);
 
+  const records = data?.regs?.filter((reg) => new Date(reg.date).toDateString() === props.day)   
+  console.log(records)
   const dayColor = colors[new Date(props.day).getDay()]
-
+  
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset', backgroundColor: dayColor, userSelect: 'none' }, fontSize: '14px' }}>
 
         <TableCell component="th" scope="row" >
-          <Typography variant="h6">{new Date(props.day).toLocaleDateString('es-ES', { weekday: 'long' })} {props.day}</Typography>
+          <Typography variant="h6">{new Date(props.day).toLocaleDateString('es-ES', { weekday: 'long' })} {new Date(props.day).toISOString().substring(0, 10)}</Typography>
         </TableCell>
-        <TableCell component="th" scope="row">{props.records.length}</TableCell>
+        <TableCell component="th" scope="row">{records.length}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ padding: 0 }} colSpan={3}>
 
           <Table sx={{ margin: 0, userSelect: 'none' }} size="small" aria-label="records">
             <TableBody>
-              {props.records.sort((a, b) => b.date - a.date).map((record, index) => (
+              {records.sort((a, b) => b.date - a.date).map((record, index) => (
 
                 <TableRow
                   key={record.id}
@@ -93,34 +84,20 @@ function DayRow(props) {
   );
 }
 
-DayRow.propTypes = {
-  day: PropTypes.string.isRequired,
-  records: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      date: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-};
-
 export default function LogsTable() {
   const { data } = useContext(LocalStorageContext);
 
   if (!data?.regs) {
     return <Typography>No hay registros</Typography>;
-  }
-  const groupedRecords = groupRecordsByDay(data.regs);
-  
+  } 
 
   const sortedUniqueDays = getDaysBetweenDates(data.regs[0].date)
-
   return (
     <TableContainer component={Paper} sx={{ mb: 20, }}>
       <Table aria-label="collapsible table">
         <TableBody>
           {sortedUniqueDays.map((day) => (
-            <DayRow key={day} day={day} records={groupedRecords[day]} />
+            <DayRow key={day} day={day} />
           ))}
         </TableBody>
       </Table>
