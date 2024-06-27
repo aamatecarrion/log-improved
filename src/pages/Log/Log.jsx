@@ -53,13 +53,13 @@ const Log = () => {
         <TotalTimeAgo date={detailedLog.date} unit={timeUnit}></TotalTimeAgo>
       </Card>
       <Card sx={{ pl: '8px', pr: '8px', mt: '8px' }}>
-        <Box sx={{ margin: 1, userSelect: 'none' }}>
-          <Table size="small" aria-label="records">
-            <TableBody>
+        <div style={{ maxHeight: '200px', overflow: 'auto' }}>
+          <table style={{  margin: 'auto', width: '100%', textAlign: 'center', userSelect: 'none' }}>
+            <tbody>
               {data.regs.filter((reg) => reg.text === detailedLog.text).sort((a, b) => b.date - a.date).map((record, index) => (
-                <TableRow
+                <tr
                   key={record.id}
-                  sx={{
+                  style={{
                     backgroundColor: (() => {
                       if (record.id === detailedLog.id) {
                         return blue[300];
@@ -69,28 +69,23 @@ const Log = () => {
                         return 'white';
                       }
                     })(),
-              textDecorationLine: 'none',
-              '&:hover': {
-                backgroundColor: blue['A700'],
-                    },
                   }}
-              onClick={() => {
-                
-                navigate(`/log/${record.id}`)
-              }}
+                  onClick={() => {
+                    navigate(`/log/${record.id}`)
+                  }}
                 >
-              <TableCell>{new Date(record.date).toLocaleDateString('es-ES', { weekday: 'long' })}</TableCell>
-              <TableCell>{formatDate(record.date)} {formatTime(record.date)}</TableCell>
-              <TableCell>{record.text}</TableCell>
-            </TableRow>
+                  <td style={{  padding: '5px' }}>{new Date(record.date).toLocaleDateString('es-ES', { weekday: 'long' })}</td>
+                  <td >{formatDate(record.date)} {formatTime(record.date)}</td>
+                  <td>{record.text}</td>
+                </tr>
               ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </Card>
-    <Card>
-    <DateCalendar showDaysOutsideCurrentMonth sx={{ mb: '300px' }} value={dayjs(formatearFecha(detailedLog.date))} readOnly />
-    </Card>
+            </tbody>
+          </table>
+        </div>
+      </Card>
+      <Card>
+        <DateCalendar showDaysOutsideCurrentMonth sx={{ mb: '300px' }} value={dayjs(formatearFecha(detailedLog.date))} readOnly />
+      </Card>
     </div >
   )
 }

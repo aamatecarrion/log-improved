@@ -17,20 +17,6 @@ import updateLocale from 'dayjs/plugin/updateLocale'
 import Settings from './pages/Settings/Settings';
 import Info from './pages/Info/Info';
 import Pruebas from './pages/Pruebas/Pruebas';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
-
 
 dayjs.extend(updateLocale)
 dayjs.updateLocale('en', {
@@ -55,12 +41,8 @@ dayjs.updateLocale('en', {
 const App = () => {
   const {data } = useContext(LocalStorageContext)
 
-  const darkMode = data.darkMode
-
   return (
-    
-      <ThemeProvider theme={darkMode ? darkTheme : lightTheme }>
-        <CssBaseline />
+           
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <BrowserRouter basename='/log-improved/'>
             <Routes >
@@ -79,7 +61,6 @@ const App = () => {
             <Nav></Nav>
           </BrowserRouter>
         </LocalizationProvider>
-      </ThemeProvider>
   );
 };
 

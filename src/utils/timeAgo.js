@@ -22,7 +22,7 @@ function timeAgo(date) {
 
     const monthsFormat = () => {
         const remainingMonths = months % 12;
-        return remainingMonths > 0 ? `${remainingMonths} mes${remainingMonths !== 1 ? 's' : ''}, ` : ''
+        return remainingMonths > 0 ? `${remainingMonths} mes${remainingMonths !== 1 ? 'es' : ''}, ` : ''
     }
 
     const daysFormat = () => {

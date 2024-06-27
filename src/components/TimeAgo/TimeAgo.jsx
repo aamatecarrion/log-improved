@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import './TimeAgo.css'
 import timeAgo from '../../utils/timeAgo'
 
 const TimeAgo = (props) => {
