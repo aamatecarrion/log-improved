@@ -13,11 +13,8 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { MobileDateTimePicker } from '@mui/x-date-pickers';
 
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 import { LocalStorageContext } from "../../contexts/LocalStorageContext";
 import useGetUnique from "../../hooks/useGetUnique";
 
@@ -144,8 +141,8 @@ function AddButtonWithDialog() {
             )}
           />
         </DialogContent>
-        <MobileDateTimePicker showDaysOutsideCurrentMonth ampm={false} value={fecha} onChange={(newValue) => setFecha(newValue)}>
-        </MobileDateTimePicker>
+        {/* <MobileDateTimePicker showDaysOutsideCurrentMonth ampm={false} value={fecha} onChange={(newValue) => setFecha(newValue)}>
+        </MobileDateTimePicker> */}
         <DialogActions>
           <Button
             sx={{ marginRight: 2 }}

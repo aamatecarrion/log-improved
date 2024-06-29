@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
+import ListIcon from '@mui/icons-material/List';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import DownloadIcon from '@mui/icons-material/Download';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -39,11 +42,12 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem component={Link} to="/names" onClick={handleClose} ><ListIcon/>&nbsp;Nombres agrupados</MenuItem>
         <MenuItem component={Link} to="/pruebas" onClick={handleClose}><ScienceOutlinedIcon/>&nbsp;Pruebas</MenuItem>
         <MenuItem component={Link} to="/info" onClick={handleClose}><InfoOutlinedIcon/>&nbsp;Info</MenuItem>
         <MenuItem component={Link} to="/settings" onClick={handleClose}><SettingsIcon/>&nbsp;Configuración</MenuItem>
-        <MenuItem component={Link} to="/importjson" onClick={handleClose}>Importar datos</MenuItem>
-        <MenuItem component={Link} to="/exportjson" onClick={handleClose}>Exportar datos</MenuItem>
+        <MenuItem component={Link} to="/importjson" onClick={handleClose}><UploadFileIcon/>&nbsp;Importar datos</MenuItem>
+        <MenuItem component={Link} to="/exportjson" onClick={handleClose}><DownloadIcon/>&nbsp;Exportar datos</MenuItem>
       </Menu>
     </div>
   );

@@ -14,7 +14,6 @@ import EliminarConDialogo from '../../components/EliminarConDialogo/EliminarConD
 import { blue, purple } from '@mui/material/colors'
 import formatDate from '../../utils/formatDate'
 import { DateCalendar } from '@mui/x-date-pickers'
-import dayjs from 'dayjs'
 
 
 const Log = () => {
@@ -84,7 +83,7 @@ const Log = () => {
         </div>
       </Card>
       <Card>
-        <DateCalendar showDaysOutsideCurrentMonth sx={{ mb: '300px' }} value={dayjs(formatearFecha(detailedLog.date))} readOnly />
+        <DateCalendar showDaysOutsideCurrentMonth sx={{ mb: '300px' }} value={(formatearFecha(detailedLog.date))} readOnly />
       </Card>
     </div >
   )

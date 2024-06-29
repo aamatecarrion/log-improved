@@ -1,5 +1,4 @@
 import * as React from 'react';
-import dayjs from 'dayjs';
 import Badge from '@mui/material/Badge';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -33,7 +32,7 @@ export default function DateCalendarServerRequest() {
 
   const { data } = useContext(LocalStorageContext)
   const [highlightedDays, setHighlightedDays] = useState([30,1, 2, 15]);
-  const initialValue = dayjs(data.regs[data.regs.length - 1].date);
+
 
   
 

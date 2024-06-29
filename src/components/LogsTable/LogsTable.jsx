@@ -13,14 +13,17 @@ export default function LogsTable() {
   }
 
   const todosLosDias = getDatesFromTimestamp(data.regs[0].date)
+  
   return (
-    
-      <table style={{ width: '95vw', margin: "auto", userSelect: 'none', marginBottom: '300px' }} className='dias'>
+
+    <table style={{ width: '95vw', margin: "auto", userSelect: 'none', marginBottom: '300px' }} className='dias'>
+      <tbody>
         {todosLosDias.reverse().map((dia) => (
           <Dia key={dia} dia={dia}></Dia>
 
         ))}
-      </table>
+      </tbody>
+    </table>
   );
 }
 

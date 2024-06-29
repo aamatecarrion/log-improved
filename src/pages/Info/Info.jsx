@@ -15,7 +15,6 @@ const Info = () => {
         <li>Analizar las cosas obsesivamente y no disfrutar de la vida</li>
       </ul>
       <p>Recomiendo no volverse muy obsesivo intentando registrarlo todo, aunque bueno, cada persona es distinta, tiene hábitos distintos, quiere registrar cosas distintas, etc.</p>
-
     </div>
   )
 }

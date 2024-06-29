@@ -7,7 +7,7 @@ const ImportJson = () => {
   return (
     <div>
       <Typography variant="body1" gutterBottom>
-        Importa aquí tus datos exportados en JSON. Puedes seleccionar tantos archivos JSON como quieras, la aplicación se encargará de mezclarlos.
+        Importa aquí tus datos exportados en JSON.{/*  Puedes seleccionar tantos archivos JSON como quieras, la aplicación se encargará de mezclarlos. */}
       </Typography>
 
       <FileUploader></FileUploader>

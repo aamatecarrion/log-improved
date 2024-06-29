@@ -46,7 +46,7 @@ const FileUploader = () => {
         type="file"
         accept=".json"
         style={{ display: 'none' }}
-        multiple
+        
         onChange={handleFileChange}
       />
     </div>
