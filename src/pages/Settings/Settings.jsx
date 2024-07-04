@@ -37,22 +37,24 @@ const Settings = () => {
 
       <Paper elevation={6} sx={{ p: '10px', m: '8px' }}>
         <Typography variant="h6">Color de fondo de cada día de la semana</Typography>
-        {dayNames.map((dayName, index) => (
-          <Box key={index} sx={{ display: 'flex', alignItems: 'center', my: '10px' }}>
-            <label htmlFor={dayName} style={{ flex: '1' }}>{dayName}</label>
-            <input 
-              id={dayName} 
-              type="color" 
-              value={colors[index]} 
-              onChange={(e) => colorChange(index, e.target.value)}
-              style={{ flex: '2', height: '50px', border: 'none', cursor: 'pointer' }} 
-            />
-          </Box>
-        ))}
+        {dayNames.map((dayName, index) => {
+          const colorKey = `color${dayName}`;
+          return (
+            <Box key={index} sx={{ display: 'flex', alignItems: 'center', my: '10px' }}>
+              <label htmlFor={colorKey} style={{ flex: '1' }}>{dayName}</label>
+              <input 
+                id={colorKey} 
+                type="color" 
+                value={colors[colorKey] || '#ffffff'}  // Valor por defecto si está indefinido
+                onChange={(e) => colorChange(colorKey, e.target.value)}
+                style={{ flex: '2', height: '50px', border: 'none', cursor: 'pointer' }} 
+              />
+            </Box>
+          );
+        })}
       </Paper>
     </React.Fragment>
   );
 };
 
 export default Settings;
-
