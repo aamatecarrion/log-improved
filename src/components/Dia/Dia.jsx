@@ -12,7 +12,7 @@ const Dia = (props) => {
   const { data } = useContext(LocalStorageContext);
   const registrosDia = data.regs.filter((reg) => formatDate(reg.date) === props.dia);
   const numeroDiaSemana = getCustomDay(new Date(props.dia));
-  const color = data && data.colors[numeroDiaSemana];
+  const color = data && data.colors && data.colors[numeroDiaSemana];
   
   
   return (
