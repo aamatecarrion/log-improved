@@ -1,9 +1,9 @@
-import * as React from 'react';
-import './LogsTable.css';
-import { useContext } from 'react';
-import { LocalStorageContext } from '../../contexts/LocalStorageContext';
-import getDatesFromTimestamp from '../../utils/getDatesFromTimestamp';
-import Dia from '../Dia/Dia';
+import * as React from "react";
+import "./LogsTable.css";
+import { useContext } from "react";
+import { LocalStorageContext } from "../../contexts/LocalStorageContext";
+import getDatesFromTimestamp from "../../utils/getDatesFromTimestamp";
+import Dia from "../Dia/Dia";
 
 export default function LogsTable() {
   const { data } = useContext(LocalStorageContext);
@@ -12,18 +12,38 @@ export default function LogsTable() {
     return <h3>No hay registros</h3>;
   }
 
-  const todosLosDias = getDatesFromTimestamp(data.regs[0].date)
-  
-  return (
+  function timeMasChiquito() {
+    const objects = data.regs;
+    if (objects.length === 0) {
+      return null;
+    }
+    let minObject = objects[0];
 
-    <table style={{ width: '95vw', margin: "auto", userSelect: 'none', marginBottom: '300px' }} className='dias'>
+    for (let i = 1; i < objects.length; i++) {
+      if (objects[i].date < minObject.date) {
+        minObject = objects[i];
+      }
+    }
+    return minObject.date;
+  }
+  const todosLosDias = getDatesFromTimestamp(timeMasChiquito());
+  console.log(todosLosDias);
+
+  return (
+    <table
+      style={{
+        width: "95vw",
+        margin: "auto",
+        userSelect: "none",
+        marginBottom: "300px",
+      }}
+      className="dias"
+    >
       <tbody>
         {todosLosDias.reverse().map((dia) => (
           <Dia key={dia} dia={dia}></Dia>
-
         ))}
       </tbody>
     </table>
   );
 }
-

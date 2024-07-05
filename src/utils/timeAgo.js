@@ -1,3 +1,5 @@
+import { differenceInYears, differenceInMonths, differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
+
 function timeAgo(date) {
     const now = new Date();
     const givenDate = new Date(date);
@@ -6,47 +8,22 @@ function timeAgo(date) {
         return "Fecha inválida";
     }
 
+    const isPast = now > givenDate;
 
-    let difference = Math.abs(now - givenDate);
+    const years = differenceInYears(now, givenDate);
+    const months = differenceInMonths(now, givenDate) % 12;
+    const days = differenceInDays(now, givenDate) % 30;
+    const hours = differenceInHours(now, givenDate) % 24;
+    const minutes = differenceInMinutes(now, givenDate) % 60;
+    const seconds = differenceInSeconds(now, givenDate) % 60;
 
-    const seconds = Math.floor(difference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(months / 12);
+    const formatTimeUnit = (value, unitName) => {
+        return value > 0 ? `${value} ${unitName}${value !== 1 ? 's' : ''}, ` : '';
+    };
 
-    const yearsFormat = () => {
-        return years > 0 ? `${years} año${years !== 1 ? 's' : ''}, ` : ''
-    }
+    const result = `${formatTimeUnit(years, 'año')}${formatTimeUnit(months, 'mes')}${formatTimeUnit(days, 'día')}${formatTimeUnit(hours, 'hora')}${formatTimeUnit(minutes, 'minuto')}${formatTimeUnit(seconds, 'segundo')}`;
 
-    const monthsFormat = () => {
-        const remainingMonths = months % 12;
-        return remainingMonths > 0 ? `${remainingMonths} mes${remainingMonths !== 1 ? 'es' : ''}, ` : ''
-    }
-
-    const daysFormat = () => {
-        const remainingDays = days % 30;
-        return remainingDays > 0 ? `${remainingDays} día${remainingDays !== 1 ? 's' : ''}, ` : ''
-    }
-
-    const hoursFormat = () => {
-        const remainingHours = hours % 24;
-        return remainingHours > 0 ? `${remainingHours} hora${remainingHours !== 1 ? 's' : ''}, ` : ''
-    }
-
-    const minutesFormat = () => {
-        const remainingMinutes = minutes % 60;
-        return remainingMinutes > 0 ? `${remainingMinutes} minuto${remainingMinutes !== 1 ? 's' : ''}, y` : ''
-    }
-
-    const secondsFormat = () => {
-        const remainingSeconds = seconds % 60;
-        return `${remainingSeconds} segundo${remainingSeconds !== 1 ? 's' : ''}`;
-    }
-    const result = `${yearsFormat()} ${monthsFormat()} ${daysFormat()} ${hoursFormat()} ${minutesFormat()} ${secondsFormat()}`
-
-    return `${now > givenDate ? 'Hace ' : 'Quedan'} ${result}`
+    return `${isPast ? 'Hace ' : 'Quedan '}${result.trim().replace(/,$/, '')}`;
 }
 
 export default timeAgo;
