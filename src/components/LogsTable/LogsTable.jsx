@@ -37,7 +37,7 @@ export default function LogsTable() {
         userSelect: "none",
         marginBottom: "300px",
       }}
-      className="dias"
+      className="tablaDias"
     >
       <tbody>
         {todosLosDias.reverse().map((dia) => (

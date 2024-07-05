@@ -4,6 +4,7 @@ import { LocalStorageContext } from '../../contexts/LocalStorageContext';
 import useColors from '../../hooks/useColors';
 import { format, addDays } from 'date-fns';
 import { es } from 'date-fns/locale';
+import saludoSegunHora from '../../utils/saludoSegunHora';
 
 const getDayNamesInSpanish = () => {
   const days = [];
@@ -21,7 +22,7 @@ const Settings = () => {
   const { data, setData } = useContext(LocalStorageContext);
 
   return (
-    <React.Fragment>
+    <div style={{ height: '200vh' }}>
       <Paper elevation={6} sx={{ p: '10px', m: '8px' }}>
         <Typography variant="h4">Configuración</Typography>
         <Box sx={{ m: '10px' }}>
@@ -53,7 +54,8 @@ const Settings = () => {
           );
         })}
       </Paper>
-    </React.Fragment>
+      <p style={{ position: 'absolute', bottom: '-300px' }}>Aquí no hay nada de momento pero {saludoSegunHora()} gracias por bajar</p>
+    </div>
   );
 };
 

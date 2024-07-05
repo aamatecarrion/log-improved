@@ -23,8 +23,6 @@ const Dia = (props) => {
   // cojo el contexto localStorage
   const { data } = useContext(LocalStorageContext);
   
-  
-  
   const registrosDia = data.regs.filter(
     (reg) => formatDate(reg.date) === props.dia
   );
