@@ -27,7 +27,6 @@ export default function LogsTable() {
     return minObject.date;
   }
   const todosLosDias = getDatesFromTimestamp(timeMasChiquito());
-  console.log(todosLosDias);
 
   return (
     <table

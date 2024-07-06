@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import { LocalStorageContext } from "../../contexts/LocalStorageContext";
 import formatDate from "../../utils/formatDate";
 import RegistrosDia from "../RegistrosDia/RegistrosDia";
+import { useNavigate } from "react-router-dom";
+import getTextColorForBackground from "../../utils/getTextColorForBackground";
+
 
 const diasSemana = [
   "colorLunes",
@@ -18,8 +21,12 @@ const getCustomDay = (date) => {
   return day === 0 ? 6 : day - 1; // Convertir domingo (0) a 6 y otros días ajustados a 0-5
 };
 
+
+
+
 const Dia = (props) => {
-  
+  const navigate = useNavigate();
+
   // cojo el contexto localStorage
   const { data } = useContext(LocalStorageContext);
   
@@ -32,12 +39,13 @@ const Dia = (props) => {
 
   return (
     <React.Fragment>
-      <tr style={{ backgroundColor: color }}>
+      <tr style={{ backgroundColor: color, color: getTextColorForBackground(color) }} onClick={ navigate}>
         <td style={{ padding: "5px" }}>
           {new Date(props.dia).toLocaleDateString("es-ES", { weekday: "long" })}
         </td>
         <td style={{ padding: "5px", textAlign: "center" }}>{props.dia}</td>
         <td style={{ padding: "5px" }}>{registrosDia.length}</td>
+        
       </tr>
 
       <RegistrosDia registrosDia={registrosDia} color={color} />

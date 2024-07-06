@@ -20,11 +20,12 @@ import { es } from 'date-fns/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 // If you are using date-fns v3.x, please import the v3 adapter
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import Favs from './pages/Favs/Favs';
 
 
 const App = () => {
-  const { data } = useContext(LocalStorageContext)
-
+  const { data , setData } = useContext(LocalStorageContext)
+  
   return (
 
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={es}>
@@ -37,6 +38,7 @@ const App = () => {
           <Route exact path="/pruebas" element={<Pruebas></Pruebas>} />
           <Route exact path="/settings" element={<Settings></Settings>} />
           <Route exact path="/info" element={<Info></Info>} />
+          <Route exact path="/favs" element={<Favs></Favs>} />
           <Route exact path="/name/:name" element={<Name></Name>} />
           <Route exact path="/exportjson" element={<ExportJson></ExportJson>} />
           <Route exact path="/importjson" element={<ImportJson></ImportJson>} />

@@ -1,0 +1,9 @@
+.tablaNombres td {
+    border: 1px solid black;
+    padding: 5px;
+}
+.tablaNombres {
+    margin-bottom: 300px;
+
+
+}

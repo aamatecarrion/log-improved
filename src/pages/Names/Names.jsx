@@ -1,62 +1,56 @@
-import * as React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import { useContext } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { LocalStorageContext } from '../../contexts/LocalStorageContext';
-import useGetUnique from '../../hooks/useGetUnique';
-
-const columns = [
-    {
-        field: 'id',
-        headerName: 'Name',
-        width: 170,
-        editable: false,
-    },
-    {
-        field: 'count',
-        headerName: 'Count',
-        width: 150,
-        type: 'number',
-        editable: false,
-    },
-];
-
+import * as React from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useContext } from "react";
+import "./Names.css";
+import { LocalStorageContext } from "../../contexts/LocalStorageContext";
+import useGetUnique from "../../hooks/useGetUnique";
 
 export default function Names() {
-    const navigate = useNavigate();
-    const uniqueRegs = useGetUnique([])
-    const { data } = useContext(LocalStorageContext)
+  const navigate = useNavigate();
+  const uniqueRegs = useGetUnique([]);
+  const { data } = useContext(LocalStorageContext);
 
-    const count = (uniqueReg) => {
-        return data.regs.filter((reg) => reg.text === uniqueReg).length
-    }
+  const count = (uniqueReg) => {
+    return data.regs.filter((reg) => reg.text === uniqueReg).length;
+  };
 
-    const rows = uniqueRegs.map((reg) => {
-        return ({ id: reg, count: count(reg) })
-    })
+  const rows = uniqueRegs.map((reg) => {
+    return { id: reg, count: count(reg) };
+  });
 
-    const handleRowClick = (params) => {
-        navigate(`/name/${params.row.id}`)
-    }
+  const handleRowClick = (row) => {
+    const registros = data.regs.filter((reg) => reg.text === row.id);
 
-    return (
-        <Box sx={{ width: '100%' }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 100,
-                        },
-                    },
-                }}
-                pageSizeOptions={[100]}
-                onRowClick={handleRowClick}
-                disableRowSelectionOnClick
-            />
-        </Box>
+    const registroReciente= registros.reduce(
+      (a, b) => (a.date > b.date ? a : b),
+      { date: 0 }
     );
-}
+    navigate(`/log/${registroReciente.id}`);
 
+  };
+
+  return (
+    <table className="tablaNombres">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Nº de veces</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows
+          .sort((a, b) => b.count - a.count)
+          .map((row) => (
+            <tr
+              style={{ cursor: "pointer" }}
+              key={row.id}
+              onClick={ () => handleRowClick(row) }
+            >
+              <td>{row.id}</td>
+              <td>{row.count}</td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  );
+}
