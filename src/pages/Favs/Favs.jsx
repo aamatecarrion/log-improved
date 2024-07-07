@@ -6,20 +6,18 @@ import useHash from "../../hooks/useHash";
 import { useNavigate } from "react-router-dom";
 
 const Favs = () => {
-  const { data,setData } = useContext(LocalStorageContext);
+  const { data, setData } = useContext(LocalStorageContext);
   const favs = data?.favs || [];
   const uniqueFavs = [...new Set(favs)];
   const [hash, setHash] = useHash();
   const navigate = useNavigate();
 
   function stringToColor(str, initialHash) {
-    // Hash la cadena en un entero usando el valor inicial del slider
     let hash = initialHash;
     for (let i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    // Convierte el entero hash en un color RGB
     let color = "#";
     for (let i = 0; i < 3; i++) {
       const value = (hash >> (i * 8)) & 0xff;
@@ -40,7 +38,7 @@ const Favs = () => {
           valueLabelDisplay="auto"
           step={1}
           min={0}
-          max={10} // Puedes ajustar el máximo según sea necesario
+          max={10} // Adjust the max value as needed
         />
       </div>
       <div>

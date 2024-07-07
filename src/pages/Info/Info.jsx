@@ -42,13 +42,6 @@ const Info = () => {
           aunque bueno, cada persona es distinta, tiene hábitos distintos,
           quiere registrar cosas distintas, etc.
         </li>
-        <br></br>
-        <li>
-          Voy a añadir que se le pueda dar fav a un tipo de registro concreto
-          para así poder crear una página de accesos directos e insertar ese
-          tipo de registros más rápido, por ejemplo: Ducha, dormir, Inicio
-          siesta
-        </li>
       </ul>
     </div>
   );
