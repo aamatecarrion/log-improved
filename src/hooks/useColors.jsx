@@ -3,28 +3,30 @@ import { LocalStorageContext } from '../contexts/LocalStorageContext';
 
 const useColors = () => {
   const { data, setData } = useContext(LocalStorageContext);
-  const initialColors = data?.colors || {
-    colorLunes: "#ffffff",
-    colorMartes: "#ffffff",
-    colorMiercoles: "#ffffff",
-    colorJueves: "#ffffff",
-    colorViernes: "#ffffff",
-    colorSabado: "#ffffff",
-    colorDomingo: "#ffffff",
-  };
+  const initialColors = data?.colors || [
+    "#ffffff",
+    "#ffffff",
+    "#ffffff",
+    "#ffffff",
+    "#ffffff",
+    "#ffffff",
+    "#ffffff"
+  ];
 
   const [colors, setColors] = useState(initialColors);
 
   useEffect(() => {
     setData({ ...data, colors: colors });
+    console.log(colors);
   }, [colors]);
 
   const colorChange = (day, color) => {
-    const newColors = { ...colors, [day]: color };
+    const newColors = [...colors];
+    newColors[day] = color;
     setColors(newColors);
   };
 
-  return { colors, colorChange };
+  return { colors, setColors, colorChange };
 };
 
 export default useColors;

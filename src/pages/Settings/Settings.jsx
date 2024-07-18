@@ -4,6 +4,8 @@ import { LocalStorageContext } from "../../contexts/LocalStorageContext";
 import useColors from "../../hooks/useColors";
 import { format, addDays } from "date-fns";
 import { es } from "date-fns/locale";
+import chroma from "chroma-js";
+import '../../App.css';
 import saludoSegunHora from "../../utils/saludoSegunHora";
 
 const getDayNamesInSpanish = () => {
@@ -20,61 +22,40 @@ const getDayNamesInSpanish = () => {
 const dayNames = getDayNamesInSpanish();
 
 const Settings = () => {
-  const { colors, setColors } = useColors();
+  const { colors, setColors, colorChange } = useColors();
   const { data, setData } = useContext(LocalStorageContext);
 
-  const [positionGradient, setPositionGradient] = useState(0);
+  const randomColors = () => {
+    const newColors = Array.from({ length: 7 }, () => chroma.random().hex());
+    setColors(newColors);
+  };
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setPositionGradient((prevPosition) => {
-        if (prevPosition >= 360) {
-          return 0;
-        } else {
-          return prevPosition + 20;
-        }
-      });
-    }, 500);
-
-    return () => clearInterval(intervalId);
-  }, []);
+    console.log(colors);
+  }, [colors]);
 
   return (
     <div style={{ height: "200vh" }}>
-      <Paper elevation={6} sx={{ p: "10px", m: "8px" }}>
-        <Typography variant="h4">Configuración</Typography>
-        <Box sx={{ m: "10px" }}>
-          <Typography variant="h9">Modo claro</Typography>
-          <Switch
-            checked={data.darkMode}
-            onChange={(event) =>
-              setData({ ...data, darkMode: event.target.checked })
-            }
-          />
-          <Typography variant="h9">Modo oscuro</Typography>
-          <p>(Esto no funciona de momento)</p>
-        </Box>
-      </Paper>
-
+      <Typography sx={{ p: "5px", m: "5px" }} variant="h4">Configuración</Typography>
+        
       <Paper elevation={6} sx={{ p: "10px", m: "8px" }}>
         <Typography variant="h6">
           Color de fondo de cada día de la semana
         </Typography>
         {dayNames.map((dayName, index) => {
-          const colorKey = `color${dayName}`;
           return (
             <Box
               key={index}
               sx={{ display: "flex", alignItems: "center", my: "10px" }}
             >
-              <label htmlFor={colorKey} style={{ flex: "1" }}>
+              <label htmlFor={`color${index}`} style={{ flex: "1" }}>
                 {dayName}
               </label>
               <input
-                id={colorKey}
+                id={`color${index}`}
                 type="color"
-                value={colors[colorKey] || "#ffffff"} // Valor por defecto si está indefinido
-                onChange={(e) => setColors(colorKey, e.target.value)}
+                value={colors[index] || "#ffffff"} // Valor por defecto si está indefinido
+                onChange={(e) => colorChange(index, e.target.value)}
                 style={{
                   flex: "2",
                   height: "50px",
@@ -86,30 +67,19 @@ const Settings = () => {
           );
         })}
         <div
+          onClick={() => randomColors()}
           className="rainbow-background"
           style={{
+            userSelect: "none",
+            cursor: "pointer",
             textAlign: "center",
             padding: "10px",
             fontWeight: "bold",
-            border: "1px solid black",
-            backgroundImage: `linear-gradient(45deg, hsla(${positionGradient}, 100%, 50%, 1), hsla(${
-              positionGradient + 51
-            }, 100%, 50%, 1), hsla(${
-              positionGradient + 102
-            }, 100%, 50%, 1), hsla(${
-              positionGradient + 153
-            }, 100%, 50%, 1), hsla(${
-              positionGradient + 204
-            }, 100%, 50%, 1), hsla(${
-              positionGradient + 255
-            }, 100%, 50%, 1), hsla(${
-              positionGradient + 306
-            }, 100%, 50%, 1), hsla(${positionGradient + 357}, 100%, 50%, 1) )`,
+            border: "1px solid black"
           }}
         >
           ALEATORIO
         </div>
-        <p>el botón no funciona todavía pero lo importante es que tiene luces y tal</p>
       </Paper>
       <p style={{ position: "absolute", bottom: "-300px" }}>
         Aquí no hay nada de momento pero {saludoSegunHora()} gracias por bajar
