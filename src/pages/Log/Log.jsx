@@ -182,6 +182,7 @@ const Log = () => {
       </Card>
       <Card>
           <DateCalendar
+            sx={{ width: "90%", margin: "auto" }}
             showDaysOutsideCurrentMonth
             value={new Date(detailedLog.date)}
             readOnly
