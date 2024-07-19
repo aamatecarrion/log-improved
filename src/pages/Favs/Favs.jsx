@@ -4,6 +4,7 @@ import getTextColorForBackground from "../../utils/getTextColorForBackground";
 import { Slider } from "@mui/material";
 import useHash from "../../hooks/useHash";
 import { useNavigate } from "react-router-dom";
+import stringToColor from "../../utils/stringToColor";
 
 const Favs = () => {
   const { data, setData } = useContext(LocalStorageContext);
@@ -12,35 +13,10 @@ const Favs = () => {
   const [hash, setHash] = useHash();
   const navigate = useNavigate();
 
-  function stringToColor(str, initialHash) {
-    let hash = initialHash;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = "#";
-    for (let i = 0; i < 3; i++) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += ("00" + value.toString(16)).slice(-2);
-    }
-
-    return color;
-  }
-
+  
   return (
     <div>
       <h1>Favs</h1>
-      <div style={{ padding: "10px" }}>
-        <Slider
-          aria-label="Hash"
-          value={hash}
-          onChange={(event, newValue) => setHash(newValue)}
-          valueLabelDisplay="auto"
-          step={1}
-          min={0}
-          max={10} // Adjust the max value as needed
-        />
-      </div>
       <div>
         {uniqueFavs.map((fav) => (
           <div

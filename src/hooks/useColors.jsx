@@ -17,7 +17,6 @@ const useColors = () => {
 
   useEffect(() => {
     setData({ ...data, colors: colors });
-    console.log(colors);
   }, [colors]);
 
   const colorChange = (day, color) => {

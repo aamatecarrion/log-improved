@@ -7,6 +7,10 @@ import { es } from "date-fns/locale";
 import chroma from "chroma-js";
 import '../../App.css';
 import saludoSegunHora from "../../utils/saludoSegunHora";
+import { Slider } from "@mui/material";
+import stringToColor from "../../utils/stringToColor";
+import useHash from "../../hooks/useHash";
+import getTextColorForBackground from "../../utils/getTextColorForBackground";
 
 const getDayNamesInSpanish = () => {
   const days = [];
@@ -24,15 +28,14 @@ const dayNames = getDayNamesInSpanish();
 const Settings = () => {
   const { colors, setColors, colorChange } = useColors();
   const { data, setData } = useContext(LocalStorageContext);
+  const favs = data?.favs || [];
+  const uniqueFavs = [...new Set(favs)];
+  const [hash, setHash] = useHash();
 
   const randomColors = () => {
     const newColors = Array.from({ length: 7 }, () => chroma.random().hex());
     setColors(newColors);
   };
-
-  useEffect(() => {
-    console.log(colors);
-  }, [colors]);
 
   return (
     <div style={{ height: "200vh" }}>
@@ -80,6 +83,43 @@ const Settings = () => {
         >
           ALEATORIO
         </div>
+      </Paper>
+      <Paper elevation={6} sx={{ p: "10px", m: "8px" }}>
+      <Typography variant="h6">
+          Color favs
+        </Typography>
+      <div style={{ padding: "10px" }}>
+        <Slider
+          aria-label="Hash"
+          value={hash}
+          onChange={(event, newValue) => setHash(newValue)}
+          valueLabelDisplay="auto"
+          step={1}
+          min={0}
+          max={100} // Adjust the max value as needed
+        />
+      </div>
+      <div>
+        {uniqueFavs.map((fav) => (
+          <div
+            style={{
+              transition: "all 0.1s ease",
+              cursor: "pointer",
+              userSelect: "none",
+              margin: "5px",
+              border: "1px solid black",
+              display: "inline-block",
+              padding: "10px",
+              borderRadius: "5px",
+              backgroundColor: stringToColor(fav, hash),
+              color: getTextColorForBackground(stringToColor(fav, hash)),
+            }}
+            key={fav}
+          >
+            {fav}
+          </div>
+        ))}
+      </div>
       </Paper>
       <p style={{ position: "absolute", bottom: "-300px" }}>
         Aquí no hay nada de momento pero {saludoSegunHora()} gracias por bajar

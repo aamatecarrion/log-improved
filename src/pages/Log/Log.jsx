@@ -57,7 +57,7 @@ const Log = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={() => navigate("/")}>
+      <Button variant="contained" onClick={() => navigate(-1)}>
         Volver
       </Button>
       <EliminarConDialogo registro={detailedLog}></EliminarConDialogo>
