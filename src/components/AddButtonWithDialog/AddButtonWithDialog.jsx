@@ -10,19 +10,24 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Typography,
 } from "@mui/material";
+import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { LocalStorageContext } from "../../contexts/LocalStorageContext";
 import useGetUnique from "../../hooks/useGetUnique";
+import { MobileDateTimePicker } from "@mui/x-date-pickers";
+import './AddButtonWithDialog.css';
 
 function AddButtonWithDialog() {
   const uniqueSorted = useGetUnique() || []; // Ensure uniqueSorted is never null
   const { data, setData } = useContext(LocalStorageContext);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [text, setText] = useState("");
+  const [longText, setLongText] = useState("");
   const [addMode, setAddMode] = useState(true);
   const autoCompleteRef = useRef(null);
   const [fecha, setFecha] = useState(null);
@@ -81,6 +86,7 @@ function AddButtonWithDialog() {
         text: trimmedValue,
         id: trimmedValue + "_" + fechaAdd,
         date: fechaAdd,
+        lt: longText,
       };
       setData({ ...data, regs: [...(data.regs || []), newReg] });
     }
@@ -140,9 +146,40 @@ function AddButtonWithDialog() {
               />
             )}
           />
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Texto largo</Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ p: 0 }}>
+              <TextareaAutosize
+                minRows={4}
+                value={longText}
+                onChange={(event) => setLongText(event.target.value)}
+              />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Fecha y hora</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <MobileDateTimePicker
+                showDaysOutsideCurrentMonth
+                ampm={false}
+                value={fecha}
+                onChange={(newValue) => setFecha(newValue)}
+              ></MobileDateTimePicker>
+            </AccordionDetails>
+          </Accordion>
         </DialogContent>
-        {/* <MobileDateTimePicker showDaysOutsideCurrentMonth ampm={false} value={fecha} onChange={(newValue) => setFecha(newValue)}>
-        </MobileDateTimePicker> */}
         <DialogActions>
           <Button
             sx={{ marginRight: 2 }}

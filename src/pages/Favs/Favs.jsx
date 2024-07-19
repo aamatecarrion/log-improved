@@ -5,6 +5,7 @@ import { Slider } from "@mui/material";
 import useHash from "../../hooks/useHash";
 import { useNavigate } from "react-router-dom";
 import stringToColor from "../../utils/stringToColor";
+import ScrollUp from "../../components/ScrollUp/ScrollUp";
 
 const Favs = () => {
   const { data, setData } = useContext(LocalStorageContext);
@@ -49,6 +50,7 @@ const Favs = () => {
           </div>
         ))}
       </div>
+      <ScrollUp></ScrollUp>
     </div>
   );
 };

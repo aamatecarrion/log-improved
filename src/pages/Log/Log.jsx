@@ -21,6 +21,7 @@ import {
   TableRow,
   Typography,
   TextField,
+  TextareaAutosize,
 } from "@mui/material";
 import EliminarConDialogo from "../../components/EliminarConDialogo/EliminarConDialogo";
 import { blue, purple } from "@mui/material/colors";
@@ -30,6 +31,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { DateCalendar } from "@mui/x-date-pickers";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import useIsFavorite from "../../hooks/useIsFavorite";
+import ScrollUp from "../../components/ScrollUp/ScrollUp";
 
 const Log = () => {
   const { data, setData } = useContext(LocalStorageContext);
@@ -39,6 +41,7 @@ const Log = () => {
   const navigate = useNavigate();
   const { isFavorite, setIsFavorite } = useIsFavorite(detailedLog?.text);
   const [editMode, setEditMode] = useState(false);
+  const [editLtMode, setEditLtMode] = useState(false);
 
   const handleTimeUnitChange = (event) => {
     setTimeUnit(event.target.value);
@@ -54,7 +57,7 @@ const Log = () => {
     const seconds = fecha.getSeconds().toString().padStart(2, "0");
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
-
+  console.log(detailedLog);
   return (
     <div>
       <Button variant="contained" onClick={() => navigate(-1)}>
@@ -62,10 +65,16 @@ const Log = () => {
       </Button>
       <EliminarConDialogo registro={detailedLog}></EliminarConDialogo>
       <Card sx={{ pl: "8px", pr: "8px", mt: "8px" }}>
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {editMode ? (
-              <TextField
+              <TextareaAutosize
                 className="nombreRegistro"
                 id="outlined-basic"
                 variant="outlined"
@@ -83,7 +92,11 @@ const Log = () => {
                 sx={{ marginRight: "8px" }} // Añadir margen a la derecha
               />
             ) : (
-              <Typography className="nombreRegistro" variant="h5" sx={{ marginRight: "8px" }}>
+              <Typography
+                className="nombreRegistro"
+                variant="h5"
+                sx={{ marginRight: "8px" }}
+              >
                 {detailedLog.text}
               </Typography>
             )}
@@ -94,7 +107,8 @@ const Log = () => {
             )}
           </Box>
           {isFavorite ? (
-            <FavoriteIcon className="iconoFavorito"
+            <FavoriteIcon
+              className="iconoFavorito"
               sx={{
                 fontSize: "30px",
                 color: "#ff0000",
@@ -103,7 +117,8 @@ const Log = () => {
               onClick={() => setIsFavorite(false)}
             />
           ) : (
-            <FavoriteBorderIcon className="iconoFavorito"
+            <FavoriteBorderIcon
+              className="iconoFavorito"
               sx={{
                 fontSize: "30px",
                 color: "#ff000077",
@@ -174,11 +189,53 @@ const Log = () => {
       <Card>
         <DateCalendar
           showDaysOutsideCurrentMonth
-          sx={{ mb: "300px" }}
           value={formatearFecha(detailedLog.date)}
           readOnly
         />
       </Card>
+      <Card sx={{ pl: "8px", pr: "8px", pb: "8px", mt: "8px", mb: "300px" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {editLtMode ? (
+            <EditOffIcon onClick={() => setEditLtMode(false)}></EditOffIcon>
+          ) : (
+            <ModeEditIcon onClick={() => setEditLtMode(true)}></ModeEditIcon>
+          )}
+
+          <Typography
+            variant="h5"
+            sx={{ marginLeft: "5px" }}
+          >
+            Texto largo
+          </Typography>
+          </Box>
+          
+          {editLtMode ? (
+            <TextareaAutosize
+              minRows={5}
+              sx={{ width: "90%"}} 
+              value={detailedLog.lt}
+              onChange={(event) => {
+                setData({
+                  ...data,
+                  regs: data.regs.map((reg) =>
+                    reg.id === detailedLog.id
+                      ? { ...reg, lt: event.target.value }
+                      : reg
+                  ),
+                });
+              }}
+            />
+          ) : (
+            <Typography
+              sx={{ marginRight: "8px", wordWrap: "break-word" }}
+            >
+              {detailedLog.lt}
+            </Typography>
+          )}
+
+      </Card>
+
+      <ScrollUp></ScrollUp>
     </div>
   );
 };

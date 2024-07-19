@@ -1,12 +1,15 @@
 import formatDate from './formatDate';
 
-function getDatesFromTimestamp(timestamp) {
+function getDatesFromTimestamps(timestamps) {
+    const timestamp1 = timestamps[0];
+    const timestamp2 = timestamps[1];
+    
     const dates = [];
 
-    const startDateObject = new Date(timestamp);
+    const startDateObject = new Date(timestamp1);
     startDateObject.setHours(0, 0, 0, 0);
 
-    const endDateObject = new Date();
+    const endDateObject = new Date(timestamp2);
     endDateObject.setHours(0, 0, 0, 0);
 
     const sumador = new Date(startDateObject);
@@ -20,4 +23,4 @@ function getDatesFromTimestamp(timestamp) {
     return dates
 }
 
-export default getDatesFromTimestamp
+export default getDatesFromTimestamps

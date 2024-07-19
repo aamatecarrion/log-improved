@@ -1,8 +1,9 @@
 import React from "react";
 import "./Info.css";
+import ScrollUp from "../../components/ScrollUp/ScrollUp";
 
 const Info = () => {
-  const [color, setColor] = React.useState(0);
+  const [color, setColor] = React.useState(120);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -43,6 +44,8 @@ const Info = () => {
           quiere registrar cosas distintas, etc.
         </li>
       </ul>
+
+      <ScrollUp></ScrollUp>
     </div>
   );
 };

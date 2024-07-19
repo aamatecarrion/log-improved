@@ -11,6 +11,7 @@ import { Slider } from "@mui/material";
 import stringToColor from "../../utils/stringToColor";
 import useHash from "../../hooks/useHash";
 import getTextColorForBackground from "../../utils/getTextColorForBackground";
+import ScrollUp from "../../components/ScrollUp/ScrollUp";
 
 const getDayNamesInSpanish = () => {
   const days = [];
@@ -124,6 +125,7 @@ const Settings = () => {
       <p style={{ position: "absolute", bottom: "-300px" }}>
         Aquí no hay nada de momento pero {saludoSegunHora()} gracias por bajar
       </p>
+      <ScrollUp></ScrollUp>
     </div>
   );
 };
