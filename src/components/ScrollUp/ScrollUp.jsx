@@ -21,7 +21,6 @@ function ScrollUp() {
   }, []);
 
   const handleScrollEvent = () => {
-    console.log("scrolling");
     setMostrarFlecha(window.scrollY > 10 ? true : false)
 
   };

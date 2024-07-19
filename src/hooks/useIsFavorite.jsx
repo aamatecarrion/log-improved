@@ -7,7 +7,7 @@ const useIsFavorite = (text) => {
 
     useEffect(() => {
         if (isFavorite) {
-            setData({...data, favs: [...data.favs || [], text]})
+            setData({...data, favs: [...new Set(data.favs || []), text]})
         } else {
             setData({...data, favs: data?.favs?.filter((fav) => fav !== text)})
         }

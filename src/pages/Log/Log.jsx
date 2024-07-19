@@ -10,21 +10,9 @@ import TimeAgo from "../../components/TimeAgo/TimeAgo";
 import TimeUnitSelector from "../../components/TimeUnitSelector/TimeUnitSelector";
 import TotalTimeAgo from "../../components/TotalTimeAgo/TotalTimeAgo";
 import EditOffIcon from "@mui/icons-material/EditOff";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Table,
-  TableCell,
-  TableBody,
-  TableRow,
-  Typography,
-  TextField,
-  TextareaAutosize,
-} from "@mui/material";
+import { Box, Button, Card, Typography, TextareaAutosize } from "@mui/material";
 import EliminarConDialogo from "../../components/EliminarConDialogo/EliminarConDialogo";
-import { blue, purple } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 import formatDate from "../../utils/formatDate";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -32,6 +20,9 @@ import { DateCalendar } from "@mui/x-date-pickers";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import useIsFavorite from "../../hooks/useIsFavorite";
 import ScrollUp from "../../components/ScrollUp/ScrollUp";
+
+import { countRecordsByDay } from "../../utils/countRecordsByDay";
+import DayWithCount from "../../components/DayWithCount/DayWithCount";
 
 const Log = () => {
   const { data, setData } = useContext(LocalStorageContext);
@@ -57,7 +48,10 @@ const Log = () => {
     const seconds = fecha.getSeconds().toString().padStart(2, "0");
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
-  console.log(detailedLog);
+
+  // Contar los registros por día con el texto de detailedLog.text
+  const counts = countRecordsByDay(data.regs, detailedLog.text);
+
   return (
     <div>
       <Button variant="contained" onClick={() => navigate(-1)}>
@@ -187,11 +181,19 @@ const Log = () => {
         </div>
       </Card>
       <Card>
-        <DateCalendar
-          showDaysOutsideCurrentMonth
-          value={formatearFecha(detailedLog.date)}
-          readOnly
-        />
+          <DateCalendar
+            showDaysOutsideCurrentMonth
+            value={new Date(detailedLog.date)}
+            readOnly
+            slots={{
+              day: DayWithCount,
+            }}
+            slotProps={{
+              day: {
+                counts,
+              },
+            }}
+          />
       </Card>
       <Card sx={{ pl: "8px", pr: "8px", pb: "8px", mt: "8px", mb: "300px" }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -201,38 +203,32 @@ const Log = () => {
             <ModeEditIcon onClick={() => setEditLtMode(true)}></ModeEditIcon>
           )}
 
-          <Typography
-            variant="h5"
-            sx={{ marginLeft: "5px" }}
-          >
+          <Typography variant="h5" sx={{ marginLeft: "5px" }}>
             Texto largo
           </Typography>
-          </Box>
-          
-          {editLtMode ? (
-            <TextareaAutosize
-              minRows={5}
-              sx={{ width: "90%"}} 
-              value={detailedLog.lt}
-              onChange={(event) => {
-                setData({
-                  ...data,
-                  regs: data.regs.map((reg) =>
-                    reg.id === detailedLog.id
-                      ? { ...reg, lt: event.target.value }
-                      : reg
-                  ),
-                });
-              }}
-            />
-          ) : (
-            <Typography
-              sx={{ marginRight: "8px", wordWrap: "break-word" }}
-            >
-              {detailedLog.lt}
-            </Typography>
-          )}
+        </Box>
 
+        {editLtMode ? (
+          <TextareaAutosize
+            minRows={5}
+            sx={{ width: "90%" }}
+            value={detailedLog.lt}
+            onChange={(event) => {
+              setData({
+                ...data,
+                regs: data.regs.map((reg) =>
+                  reg.id === detailedLog.id
+                    ? { ...reg, lt: event.target.value }
+                    : reg
+                ),
+              });
+            }}
+          />
+        ) : (
+          <Typography sx={{ marginRight: "8px", wordWrap: "break-word" }}>
+            {detailedLog.lt}
+          </Typography>
+        )}
       </Card>
 
       <ScrollUp></ScrollUp>
