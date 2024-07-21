@@ -4,6 +4,7 @@ import formatDate from "../../utils/formatDate";
 import RegistrosDia from "../RegistrosDia/RegistrosDia";
 import { useNavigate } from "react-router-dom";
 import getTextColorForBackground from "../../utils/getTextColorForBackground";
+import useColors from "../../hooks/useColors";
 
 const getCustomDay = (date) => {
   const day = date.getDay();
@@ -13,6 +14,7 @@ const getCustomDay = (date) => {
 
 const Dia = (props) => {
   const navigate = useNavigate();
+  const { colors, setColors, colorChange } = useColors();
 
   // cojo el contexto localStorage
   const { data } = useContext(LocalStorageContext);
@@ -21,7 +23,7 @@ const Dia = (props) => {
     (reg) => formatDate(reg.date) === props.dia
   );
   const numeroDiaSemana = getCustomDay(new Date(props.dia));
-  const color = data && data.colors && data.colors[numeroDiaSemana];
+  const color = colors[numeroDiaSemana];
 
   return (
     <React.Fragment>

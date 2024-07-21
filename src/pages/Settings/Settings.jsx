@@ -33,7 +33,7 @@ const Settings = () => {
   const uniqueFavs = [...new Set(favs)];
   const [hash, setHash] = useHash();
 
-  const randomColors = () => {
+  const handleRandomColors = () => {
     const newColors = Array.from({ length: 7 }, () => chroma.random().hex());
     setColors(newColors);
   };
@@ -71,7 +71,7 @@ const Settings = () => {
           );
         })}
         <div
-          onClick={() => randomColors()}
+          onClick={() => handleRandomColors()}
           className="rainbow-background"
           style={{
             userSelect: "none",
