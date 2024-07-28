@@ -38,9 +38,10 @@ export default function LogsTable() {
   return (
     <table
       style={{
-        width: "95vw",
+        width: "100%",
         margin: "auto",
         userSelect: "none",
+        borderCollapse: "collapse",
         marginBottom: "300px",
       }}
       className="tablaDias"

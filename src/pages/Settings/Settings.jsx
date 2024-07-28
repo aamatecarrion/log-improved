@@ -28,6 +28,7 @@ const dayNames = getDayNamesInSpanish();
 
 const Settings = () => {
   const { colors, setColors, colorChange } = useColors();
+  
   const { data, setData } = useContext(LocalStorageContext);
   const favs = data?.favs || [];
   const uniqueFavs = [...new Set(favs)];

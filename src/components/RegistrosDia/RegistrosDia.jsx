@@ -1,11 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import formatTime from '../../utils/formatTime'
-import { Favorite } from '@mui/icons-material'
 
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 const RegistrosDia = (props) => {
     const navigate = useNavigate()
-    
+    console.log(props.registrosDia)
     if (!props.registrosDia) {
         return null
     }
@@ -21,7 +21,10 @@ const RegistrosDia = (props) => {
                     
                     <tr key={registro.id} style={{ backgroundColor: props.color + "50" }} onClick={() => navigate(`log/${registro.id}`)} >
                         <td style={{ textAlign: 'center' }}>{formatTime(registro.date)}</td>
-                        <td colSpan={2} style={{ padding: '5px' }}>{registro.text} </td>
+                        <td style={{ padding: '5px' }}>{registro.text}</td>
+                        <td style={{ textAlign: 'center' }}>{
+                        registro.lt ? <DescriptionOutlinedIcon fontSize='small'  /> : null
+                        }</td>
                         
                     </tr>
                 ))

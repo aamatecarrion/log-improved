@@ -20,9 +20,9 @@ import { DateCalendar } from "@mui/x-date-pickers";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import useIsFavorite from "../../hooks/useIsFavorite";
 import ScrollUp from "../../components/ScrollUp/ScrollUp";
-
 import { countRecordsByDay } from "../../utils/countRecordsByDay";
 import DayWithCount from "../../components/DayWithCount/DayWithCount";
+import '../../App.css';
 
 const Log = () => {
   const { data, setData } = useContext(LocalStorageContext);
@@ -37,7 +37,23 @@ const Log = () => {
   const handleTimeUnitChange = (event) => {
     setTimeUnit(event.target.value);
   };
+  function cambiarDia(day){
+    const nuevodia = new Date(day).setHours(0, 0, 0, 0);
+    new Date(nuevodia)
 
+
+    return () => {
+      navigate(`/log/${day}`);
+    };
+  };
+  function irALogPorDia(day) {
+    new Date(day).setHours(0, 0, 0, 0);
+
+    
+    return () => {
+      navigate(`/log/${day}`);
+    };
+  }
   const formatearFecha = (date) => {
     const fecha = new Date(date);
     const year = fecha.getFullYear().toString().padStart(4, "0");
@@ -180,12 +196,14 @@ const Log = () => {
           </table>
         </div>
       </Card>
-      <Card>
+      <Card sx={{ p: "0", m: "0" }}>
           <DateCalendar
-            sx={{ width: "90%", margin: "auto" }}
+            onChange={(e) => {
+              cambiarDia(e);
+            }}
+            sx={{ width: "100%", margin: "0px" }}
             showDaysOutsideCurrentMonth
             value={new Date(detailedLog.date)}
-            readOnly
             slots={{
               day: DayWithCount,
             }}
