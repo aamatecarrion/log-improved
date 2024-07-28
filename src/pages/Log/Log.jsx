@@ -22,7 +22,11 @@ import useIsFavorite from "../../hooks/useIsFavorite";
 import ScrollUp from "../../components/ScrollUp/ScrollUp";
 import { countRecordsByDay } from "../../utils/countRecordsByDay";
 import DayWithCount from "../../components/DayWithCount/DayWithCount";
-import '../../App.css';
+import "../../App.css";
+import encontrarNumeroMasCercano from "../../utils/encontrarNumeroMasCercano";
+import useColors from "../../hooks/useColors";
+import getCustomDay from "../../utils/getCustomDay";
+import getTextColorForBackground from "../../utils/getTextColorForBackground";
 
 const Log = () => {
   const { data, setData } = useContext(LocalStorageContext);
@@ -33,26 +37,23 @@ const Log = () => {
   const { isFavorite, setIsFavorite } = useIsFavorite(detailedLog?.text);
   const [editMode, setEditMode] = useState(false);
   const [editLtMode, setEditLtMode] = useState(false);
+  const { colors, setcolors, colorChange } = useColors();
+  console;
+
+  const registrosMismoNombre = data.regs
+    .filter((reg) => reg.text === detailedLog.text)
+    .sort((a, b) => b.date - a.date);
+
+  console.log(registrosMismoNombre);
 
   const handleTimeUnitChange = (event) => {
     setTimeUnit(event.target.value);
   };
-  function cambiarDia(day){
-    const nuevodia = new Date(day).setHours(0, 0, 0, 0);
-    new Date(nuevodia)
-
-
-    return () => {
-      navigate(`/log/${day}`);
-    };
-  };
-  function irALogPorDia(day) {
-    new Date(day).setHours(0, 0, 0, 0);
-
-    
-    return () => {
-      navigate(`/log/${day}`);
-    };
+  function cambiarDia(day) {
+    const nuevodia = new Date(day).setHours(12, 0, 0, 0);
+    const timestamps = registrosMismoNombre.map((reg) => reg.date);
+    const registroMasCercano = encontrarNumeroMasCercano(timestamps, nuevodia);
+    navigate(`/log/${detailedLog.text}_${registroMasCercano}`);
   }
   const formatearFecha = (date) => {
     const fecha = new Date(date);
@@ -160,59 +161,66 @@ const Log = () => {
             }}
           >
             <tbody>
-              {data.regs
-                .filter((reg) => reg.text === detailedLog.text)
-                .sort((a, b) => b.date - a.date)
-                .map((record, index) => (
-                  <tr
-                    key={record.id}
-                    style={{
-                      backgroundColor: (() => {
-                        if (record.id === detailedLog.id) {
-                          return blue[300];
-                        } else if (index % 2 === 0) {
-                          return "white";
-                        } else {
-                          return "white";
-                        }
-                      })(),
-                    }}
-                    onClick={() => {
-                      navigate(`/log/${record.id}`);
-                    }}
-                  >
-                    <td style={{ padding: "5px" }}>
-                      {new Date(record.date).toLocaleDateString("es-ES", {
-                        weekday: "long",
-                      })}
-                    </td>
-                    <td>
-                      {formatDate(record.date)} {formatTime(record.date)}
-                    </td>
-                    <td>{record.text}</td>
-                  </tr>
-                ))}
+              {registrosMismoNombre.map((record, index) => (
+                <tr
+                  key={record.id}
+                  style={{
+                    color: (() => {
+                      if (record.id === detailedLog.id) {
+                        return "white"
+                      } else {
+                        return "black"
+                      }
+                      
+                    })(),
+                    backgroundColor: (() => {
+                      const numeroDiaSemana = getCustomDay(
+                        new Date(record.date)
+                      );
+                      const color = colors[numeroDiaSemana];
+                      if (record.id === detailedLog.id) {
+                        return color;
+                      } else {
+                        return color + "50";
+                      }
+                    })(),
+                  }}
+                  onClick={() => {
+                    navigate(`/log/${record.id}`);
+                  }}
+                >
+                  <td style={{ padding: "5px" }}>
+                    {new Date(record.date).toLocaleDateString("es-ES", {
+                      weekday: "long",
+                    })}
+                  </td>
+                  <td>
+                    {formatDate(record.date)} {formatTime(record.date)}
+                  </td>
+                  <td>{record.text}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </Card>
       <Card sx={{ p: "0", m: "0" }}>
-          <DateCalendar
-            onChange={(e) => {
-              cambiarDia(e);
-            }}
-            sx={{ width: "100%", margin: "0px" }}
-            showDaysOutsideCurrentMonth
-            value={new Date(detailedLog.date)}
-            slots={{
-              day: DayWithCount,
-            }}
-            slotProps={{
-              day: {
-                counts,
-              },
-            }}
-          />
+        <DateCalendar
+          onChange={(e) => {
+            cambiarDia(e);
+          }}
+          sx={{ width: "100%", margin: "0px" }}
+          showDaysOutsideCurrentMonth
+          value={new Date(detailedLog.date)}
+          slots={{
+            day: DayWithCount,
+          }}
+          slotProps={{
+            day: {
+              counts,
+            },
+          }}
+        />
       </Card>
       <Card sx={{ pl: "8px", pr: "8px", pb: "8px", mt: "8px", mb: "300px" }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>

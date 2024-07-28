@@ -6,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 import getTextColorForBackground from "../../utils/getTextColorForBackground";
 import useColors from "../../hooks/useColors";
 
-const getCustomDay = (date) => {
-  const day = date.getDay();
-  return day === 0 ? 6 : day - 1; // Convertir domingo (0) a 6 y otros días ajustados a 0-5
-};
+import getCustomDay from "../../utils/getCustomDay";
 
 
 const Dia = (props) => {
