@@ -13,8 +13,8 @@ This is a React + Material UI app designed to be the successor to the event/acti
 <img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/configuracion.png" width="300px" style="border: 1px solid black"></img>
 <img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/botones.png" width="300px" style="border: 1px solid black"></img>
 <img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/nuevo_registro.png" width="300px" style="border: 1px solid black"></img>
-<img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/instalar.png" width="300px" style="border: 1px solid black"></img>
-<img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/instalar2.png" width="300px" style="border: 1px solid black"></img>
 <img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/pantalla_exportacion.png" width="300px" style="border: 1px solid black"></img>
 <img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/pantalla_importacion.png" width="300px" style="border: 1px solid black"></img>
 <img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/archivo_de_respaldo.png" width="300px" style="border: 1px solid black"></img>
+<img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/instalar.png" width="300px" style="border: 1px solid black"></img>
+<img src="https://github.com/aamatecarrion/log-improved/blob/main/vista_previa_log_improved/instalar2.png" width="300px" style="border: 1px solid black"></img>
